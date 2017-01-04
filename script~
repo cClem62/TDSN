@@ -1,0 +1,70 @@
+-- Creator       MySQL Workbench 6.3.8ExportSQLite Plugin 0.1.0
+-- Author        Clément Cantraine
+-- Caption       New Model
+-- Project       Name of the project
+-- Changed       2017-01-04 0914
+-- Created       2017-01-04 0825
+PRAGMA foreign_keys = OFF;
+
+-- Schema tdsn
+ATTACH tdsn.sdb AS tdsn;
+BEGIN;
+CREATE TABLE tdsn.visibilitee(
+  idVisibilitee INTEGER PRIMARY KEY NOT NULL,
+  libelle VARCHAR(45)
+);
+CREATE TABLE tdsn.utilisateurs(
+  idUtilisateur INTEGER PRIMARY KEY NOT NULL,
+  nom VARCHAR(80),
+  prenom VARCHAR(80),
+  datenaissance DATE,
+  email VARCHAR(80),
+  mdp VARCHAR(40),
+  CONSTRAINT idVisi
+    FOREIGN KEY(idUtilisateur)
+    REFERENCES visibilitee(idVisibilitee)
+);
+CREATE TABLE tdsn.administration(
+  id INTEGER PRIMARY KEY NOT NULL,
+  libelle VARCHAR(45),
+  etat VARCHAR(45),
+  CONSTRAINT idUser
+    FOREIGN KEY(id)
+    REFERENCES utilisateurs(idUtilisateur)
+);
+CREATE TABLE tdsn.amitiees(
+  idamitiees INTEGER PRIMARY KEY NOT NULL,
+  date DATE,
+  CONSTRAINT userA
+    FOREIGN KEY(idamitiees)
+    REFERENCES utilisateurs(idUtilisateur),
+  CONSTRAINT userB
+    FOREIGN KEY(idamitiees)
+    REFERENCES utilisateurs(idUtilisateur)
+);
+CREATE TABLE tdsn.publications(
+  idPublication INTEGER PRIMARY KEY NOT NULL,
+  contenu LONGTEXT,
+  date DATETIME,
+  CONSTRAINT publicationscol_UNIQUE
+    UNIQUE(contenu),
+  CONSTRAINT auteur
+    FOREIGN KEY(idPublication)
+    REFERENCES utilisateurs(idUtilisateur)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+CREATE TABLE tdsn.jaime(
+  idJaime INTEGER PRIMARY KEY NOT NULL,
+  CONSTRAINT idPublication
+    FOREIGN KEY(idJaime)
+    REFERENCES publications(idPublication)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  CONSTRAINT idUtilisateur
+    FOREIGN KEY(idJaime)
+    REFERENCES utilisateurs(idUtilisateur)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+);
+COMMIT;
