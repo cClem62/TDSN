@@ -1,7 +1,9 @@
  <%@ page pageEncoding="UTF-8"%>
 <%@include file="template/header.inc" %>
-<div class="container">
-
+<%@ page import="db.Connexion" %>
+<% Connexion connexion = new Connexion("tdsn.db");
+        connexion.connect();
+      %>
       <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
