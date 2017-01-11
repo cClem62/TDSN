@@ -1,9 +1,11 @@
 package db;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
- 
+import java.sql.*;
+
 public class Connexion {
     private String DBPath = "";
     private Connection connection = null;
@@ -11,6 +13,10 @@ public class Connexion {
  
     public Connexion(String dBPath) {
         DBPath = dBPath;
+    }
+
+    public Connection getConnection(){
+	return this.connection;
     }
  
     public void connect() {
@@ -31,9 +37,31 @@ public class Connexion {
     public void close() {
         try {
             connection.close();
-            statement.close();
+            //statement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
+
+    public ResultSet select(String rq) {
+       ResultSet resultat= null;
+       try {
+           resultat = statement.executeQuery(rq);	 
+       } catch (SQLException e) {
+           e.printStackTrace();
+           System.out.println("Erreur dans la requête : " + rq);
+       }
+       return resultat;  
+   }
+
+    public void IUD(String rq){	
+	try{
+	    statement.executeUpdate(rq);
+	}catch(SQLException e){
+	   e.printStackTrace();
+           System.out.println("Erreur dans la requête : " + rq);
+	}
+       
+    }
+    
 }

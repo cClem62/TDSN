@@ -1,10 +1,7 @@
  <footer>
         <p>&copy; 2017 TDSN SAC</p>
-      </footer>
-
+ </footer>
     </div><!--/.container-->
-
-
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

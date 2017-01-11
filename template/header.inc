@@ -13,12 +13,12 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
     <!-- Custom styles for this template -->
     <link href="css/offcanvas.css" rel="stylesheet">
-    
-  </head>
 
   <body>
     <nav class="navbar navbar-fixed-top navbar-inverse">
@@ -34,17 +34,17 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Accueil</a></li>
+            <li class="active"><a href="#">Home</a></li>
             <li><a href="#about">About</a></li>
             <li><a href="#contact">Contact</a></li>
-	  </ul>
-
-	   <form class="navbar-form navbar-right">
+          </ul>
+	    <form class="navbar-form navbar-right">
              <input type="text" class="form-control" name="" placeholder="Adresse email">
 	     <input type="text" class="form-control" name="" placeholder="Mot de passe">
 	     <input type="button" class="form-control" value="Connexion" name="envoi">
-	   </form>
-	  
+	   </form>	  
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </nav><!-- /.navbar -->
+
+    <div class="container">
