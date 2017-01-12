@@ -1,3 +1,31 @@
-<Context path="/vide" privileged="true" reloadable="true" >
-<Manager pathname="" />
+<Context path="/videEvolue" docBase="videEvolue" debug="99">
+
+  <!-- Definition du pool -->
+  <Resource name="mabase" auth="Container" type="javax.sql.DataSource"
+  maxActive="3" maxIdle="1" maxWait="10000"
+  driverClassName="org.sqlite.JDBC"
+  url="jdbc:sqlite:/home/clement/tomcat/webapps/TDSN/tdsn.db" />
+
+  <!-- Definition du Realm sans pool -->
+
+   <!-- <Realm  className="org.apache.catalina.realm.JDBCRealm" debug="99"
+           driverName="org.postgresql.Driver"
+           connectionURL="jdbc:postgresql://localhost/pr9"
+	   connectionName="clement" connectionPassword="azerty"
+           userTable="users" userNameCol="user_name" userCredCol="user_pass"
+           userRoleTable="user_roles" roleNameCol="role_name"/>
+   -->
+
+  <!-- Definition du Realm via le pool -->
+   <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
+           dataSourceName="mabase" localDataSource="true"
+           userTable="utilisateurs" userNameCol="email" userCredCol="mdp"
+           userRoleTable="user_roles" roleNameCol="role_name"  />
+
+  <!-- Definition d'une valve d'acces -->
+  <Valve className="org.apache.catalina.valves.AccessLogValve"
+           prefix="vide_evolue_access1." suffix=".txt"
+           pattern="common"/>
+ 
 </Context>
+

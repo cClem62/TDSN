@@ -9,27 +9,12 @@
            $.get('http://localhost:8080/TDSN/servlet/verifInscription?email='+e,function(responseText)
            {
 	      if(responseText.trim() !=""){
-	      $('#msg').html("<b style='color:red;'>Adresse déjà utilisé</b>");
+	      $('#msg').html("<b>Adresse déjà utilisé</b>");
 	      }else{
 	      $('#msg').html("");
 	      }
             });
-    }
-</script>
-<script>
-    function verif(){
-    var mdp = $('#mdp').val();
-    var mdpC = $('#mdpC').val();
-    if(mdpC.trim() != ""){
-    if(mdp != mdpC){
-    	   $('#dispMdp').html("<b style='color:red;'>Les mots de passe sont différents</b>");
-    }else{
-	  $('#dispMdp').html("");
-    }
-    }else{
-	 $('#dispMdp').html("");
-    }
-    }
+    } 
   </script>
 
 <%@include file="template/header.inc" %>
@@ -47,21 +32,16 @@
 	  out.println("<div class='alert alert-success' role='alert'>Félicitations ! Vous faites maintenant parti(e) de TDSN ! Connectez vous !</div>");
 	  }else if(param.equals("exist")){
 		 out.println("<div class='alert alert-warning' role='alert'>Oups ! L'adresse email est déjà prise !</div>");
-	  }else if(param.equals("mdp")){
-	  	out.println("<div class='alert alert-warning' role='alert'>Oups ! Les mots de passe sont différents !</div>");
 	  }else{
 	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur à eu lieu !</div>");
 	  }	
 	  }
 	  %>
-          <% int a = 1;
-	       if(a == 1){
-	       %>
+
           <div class="jumbotron">
-              <h1>Bienvenue sur TDSN !<a href="test.jsp">ICI</a> </h1>
-            <p>Avec TDSN, partagez et restez en contact avec les étudiants de Lille 1.</p>	  	    
+              <h1>Bienvenue sur TDSN ! </h1>
+            <p>Avec TDSN, partagez et restez en contact avec les étudiants de Lille 1.</p>
           </div>
-	  
           <div class="row">
 
 	   <div class="col-xs-12 col-lg-8">
@@ -76,8 +56,8 @@
 	 <input name="email" type="text" id="email" class="form-control" placeholder="Email" onkeyup="appel()" required><br/>
 	 <panel id="msg"></panel>
 	  <input name="mdp" type="password" id="mdp" class="form-control" placeholder="Mot de passe" required>
-	  <input name="mdpC" type="password" id="mdpC" class="form-control" placeholder="Confirmer mot de passe" onkeyup="verif()" required><br/>
-       <span id="dispMdp"></span>
+	  <input name="mdpC" type="password" id="mdpC" class="form-control" placeholder="Confirmer mot de passe" required><br/>
+       
         <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Envoyer</button>
     </form>
 
@@ -85,47 +65,9 @@
             </div><!--/.col-xs-12.col-lg-8-->
            
           </div><!--/row-->
-	  <% }else{ %>
-	   <div class="row">
-	   	<div class="col-xs-12 col-lg-8">	   
-    <form action="servlet/inscription" method="post" name="form" id="form" class="form-signin">
-        <textarea class="form-control" rows="2" id="publication" name="publication" placeholder="Exprimez-vous"></textarea>
-        <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Publier</button>    
-    </form>
-	   
-	   </div>
-
-	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Lucas Bauduin</b> à Restaurant Palais de Lille.</h4>
-		<p>Clément, t'es libre les 21 et 22 janvier ?</p>	  
-	   </div>
- 	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Clément Cantraine</b> - pensif</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla. Curabitur egestas tortor sit amet congue ultricies. Pellentesque ac velit tincidunt, efficitur tellus in, sodales risus. Pellentesque pellentesque tempus felis et molestie. Quisque at tincidunt ipsum. Aenean feugiat eleifend nisl, congue consequat urna rutrum egestas. Aliquam et augue sagittis mi vestibulum porttitor. Ut arcu augue, lacinia eu turpis sed, facilisis suscipit massa. Phasellus ligula risus, aliquet in ligula dictum, sollicitudin sodales sapien. </p>	  
-	   </div>
-
-	    <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Aurélia Catrice</b> - énervé(e)</h4>
-		<p>J'AI DIT PAS LES MAMANS !!!</p>	  
-	   </div>
-
-	    <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Sylvain Coolsaet</b> - malade</h4>
-		<p>J'ai une grosse gastro c'est affreux :(</p>	  
-	   </div>
-
-	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Etienne Marset</b> - perdu</h4>
-		<p>On a cours en quelle salle ?</p>	  
-	   </div>
-
-	      </div>
-	   <%
-	  }
-	  %>
 	  
         </div><!--/.col-xs-12.col-sm-9-->
- <%  if(a == 0){ %>
+
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
             <a href="#" class="list-group-item active">Link</a>
@@ -140,7 +82,6 @@
             <a href="#" class="list-group-item">Link</a>
           </div>
         </div><!--/.sidebar-offcanvas-->
-	<% } %>
       </div><!--/row-->
       <hr>
   <%@include file="template/footer.inc" %>

@@ -47,6 +47,8 @@ public class Inscription extends HttpServlet{
 	   ps.executeUpdate();
 	   c.close();
 	   res.sendRedirect("../index.jsp?ins=true");
+	}else{
+	     res.sendRedirect("../index.jsp?ins=mdp");
 	}
 	}else{
 	     res.sendRedirect("../index.jsp?ins=exist");

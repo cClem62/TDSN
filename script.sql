@@ -11,6 +11,10 @@ CREATE TABLE visibilitee(
   "idVisibilitee" INTEGER PRIMARY KEY NOT NULL,
   "libelle" VARCHAR(45)
 );
+CREATE TABLE user_roles(
+"user_name" text,
+"role_name" text
+);
 CREATE TABLE utilisateurs(
   "idUtilisateur" INTEGER PRIMARY KEY NOT NULL,
   "nom" VARCHAR(80),
@@ -21,14 +25,6 @@ CREATE TABLE utilisateurs(
   CONSTRAINT "idVisi"
     FOREIGN KEY("idUtilisateur")
     REFERENCES "visibilitee"("idVisibilitee")
-);
-CREATE TABLE administration(
-  "id" INTEGER PRIMARY KEY NOT NULL,
-  "libelle" VARCHAR(45),
-  "etat" VARCHAR(45),
-  CONSTRAINT "idUser"
-    FOREIGN KEY("id")
-    REFERENCES "utilisateurs"("idUtilisateur")
 );
 CREATE TABLE amitiees(
   "idamitiees" INTEGER PRIMARY KEY NOT NULL,
