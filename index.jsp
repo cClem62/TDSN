@@ -54,7 +54,7 @@
 	  }	
 	  }
 	  %>
-          <% int a = 1;
+          <% int a = 0;
 	       if(a == 1){
 	       %>
           <div class="jumbotron">
@@ -94,32 +94,39 @@
     </form>
 	   
 	   </div>
+	   
+	 <div class="col-xs-12 col-lg-8">
+	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
+	    <div class="col-xs-12 col-lg-10">
+	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
+		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
+			</p>
+			<span class="pull-right small">Publié il y a 34 secondes</span>
+	    </div>
+	</div>
 
-	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Lucas Bauduin</b> à Restaurant Palais de Lille.</h4>
-		<p>Clément, t'es libre les 21 et 22 janvier ?</p>	  
-	   </div>
- 	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Clément Cantraine</b> - pensif</h4>
-		<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla. Curabitur egestas tortor sit amet congue ultricies. Pellentesque ac velit tincidunt, efficitur tellus in, sodales risus. Pellentesque pellentesque tempus felis et molestie. Quisque at tincidunt ipsum. Aenean feugiat eleifend nisl, congue consequat urna rutrum egestas. Aliquam et augue sagittis mi vestibulum porttitor. Ut arcu augue, lacinia eu turpis sed, facilisis suscipit massa. Phasellus ligula risus, aliquet in ligula dictum, sollicitudin sodales sapien. </p>	  
-	   </div>
+	 <div class="col-xs-12 col-lg-8">
+	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
+	    <div class="col-xs-12 col-lg-10">
+	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
+		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
+			</p>
+			<span class="pull-right small">Publié il y a 34 secondes</span>
+	    </div>
+	</div>
 
-	    <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Aurélia Catrice</b> - énervé(e)</h4>
-		<p>J'AI DIT PAS LES MAMANS !!!</p>	  
-	   </div>
+ <div class="col-xs-12 col-lg-8">
+	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
+	    <div class="col-xs-12 col-lg-10">
+	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
+		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
+			</p>
+			<span class="pull-right small">Publié il y a 34 secondes</span>
+	    </div>
+	</div>
 
-	    <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Sylvain Coolsaet</b> - malade</h4>
-		<p>J'ai une grosse gastro c'est affreux :(</p>	  
-	   </div>
 
-	   <div class="col-xs-12 col-lg-8">	   
-		<h4><b>Etienne Marset</b> - perdu</h4>
-		<p>On a cours en quelle salle ?</p>	  
-	   </div>
-
-	      </div>
+	     </div><!-- row -->
 	   <%
 	  }
 	  %>

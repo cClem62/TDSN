@@ -14,6 +14,9 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- CSS personnel -->
+    <link href="css/style.css" rel="stylesheet">
+    
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
@@ -21,8 +24,8 @@
     <link href="css/offcanvas.css" rel="stylesheet">
 
   <body>
-    <nav class="navbar navbar-fixed-top navbar-inverse">
-      <div class="container">
+    <nav class="navbar navbar-fixed-top navbar-inverse" style="background-color: #AE2573;">
+      <div class="container"> 
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
             <span class="sr-only">Toggle navigation</span>
@@ -46,3 +49,4 @@
     </nav><!-- /.navbar -->
 
     <div class="container">
+<!-- fin header.inc -->
