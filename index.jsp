@@ -54,11 +54,11 @@
 	  }	
 	  }
 	  %>
-          <% int a = 0;
+          <% int a = 1;
 	       if(a == 1){
 	       %>
           <div class="jumbotron">
-              <h1>Bienvenue sur TDSN !<a href="test.jsp">ICI</a> </h1>
+              <h1>Bienvenue sur TDSN !</h1>
             <p>Avec TDSN, partagez et restez en contact avec les étudiants de Lille 1.</p>	  	    
           </div>
 	  
@@ -148,7 +148,7 @@
           </div>
         </div><!--/.sidebar-offcanvas-->
 	<% } %>
-      </div><!--/row-->
+     </div><!--/row-->
       <hr>
   <%@include file="template/footer.inc" %>
      

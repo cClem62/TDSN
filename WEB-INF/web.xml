@@ -1,21 +1,11 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 
 <!DOCTYPE web-app
     PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN"
     "http://java.sun.com/j2ee/dtds/web-app_2.2.dtd">
+
 <web-app>
-
-<!--
-    <servlet>
-        <servlet-name>Test</servlet-name>
-        <servlet-class>Test</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>Test</servlet-name>
-        <url-pattern>/servlet/Test</url-pattern>
-    </servlet-mapping>
--->
+   
     <!-- Vie de la session en minutes -->
     <session-config>
         <session-timeout>1</session-timeout>
@@ -25,25 +15,42 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
-      <!--  Lien entre les pages et les roles -->
+    <!--  Lien entre les pages et les roles -->
     <security-constraint>
      <web-resource-collection>
-       <web-resource-name>Accueil</web-resource-name>
+       <web-resource-name>Test</web-resource-name>
          <url-pattern>/test.jsp</url-pattern>
+     </web-resource-collection>
+      <auth-constraint>
+         <role-name>membre</role-name>
+         <role-name>role2</role-name>
+      </auth-constraint>
+    </security-constraint>
+    
+  <security-constraint>
+     <web-resource-collection>
+       <web-resource-name>Test2</web-resource-name>
+         <url-pattern>/test.html</url-pattern>
      </web-resource-collection>
       <auth-constraint>
          <role-name>membre</role-name>
       </auth-constraint>
     </security-constraint>
-    
+
     <!-- La maniere dont la page de login est affichee -->
-     <login-config>
+    <login-config>
       <auth-method>BASIC</auth-method>
-      <realm-name>Nom affiché sur le formulaire</realm-name>
+      <realm-name>Nom affiche sur le formulaire</realm-name>
     </login-config>
-     <!-- La liste des differents roles -->
+
+    <!-- La liste des differents roles -->
     <security-role>
-      <role-name>membre</role-name>
+      <role-name>membre</role-name>     
     </security-role>
- 
+    
+     <security-role>
+      <role-name>role2</role-name>
+    </security-role> 
+   
 </web-app>
+

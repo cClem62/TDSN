@@ -12,7 +12,7 @@ CREATE TABLE visibilitee(
   "libelle" VARCHAR(45)
 );
 CREATE TABLE user_roles(
-"user_name" text,
+"email" text,
 "role_name" text
 );
 CREATE TABLE utilisateurs(
