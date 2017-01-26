@@ -8,7 +8,7 @@
    
     <!-- Vie de la session en minutes -->
     <session-config>
-        <session-timeout>1</session-timeout>
+        <session-timeout>15</session-timeout>
     </session-config>
 
     <welcome-file-list>
@@ -20,6 +20,14 @@
      <web-resource-collection>
        <web-resource-name>Test</web-resource-name>
          <url-pattern>/test.jsp</url-pattern>
+     </web-resource-collection>
+     <web-resource-collection>
+       <web-resource-name>Fil</web-resource-name>
+         <url-pattern>/fil.jsp</url-pattern>
+     </web-resource-collection>
+     <web-resource-collection>
+       <web-resource-name>Mur</web-resource-name>
+         <url-pattern>/mur.jsp</url-pattern>
      </web-resource-collection>
       <auth-constraint>
          <role-name>membre</role-name>
@@ -38,10 +46,23 @@
     </security-constraint>
 
     <!-- La maniere dont la page de login est affichee -->
-    <login-config>
+  <!--   <login-config>
       <auth-method>BASIC</auth-method>
       <realm-name>Nom affiche sur le formulaire</realm-name>
-    </login-config>
+    </login-config>	 -->
+    
+    
+	
+	<login-config>
+ 		<auth-method>FORM</auth-method>
+ 		<realm-name>Espace membres</realm-name>
+ 			<form-login-config>
+  	   		<form-login-page>login.jsp</form-login-page>
+   			<form-error-page>error.jsp</form-error-page>
+ 			</form-login-config>
+	</login-config>
+
+
 
     <!-- La liste des differents roles -->
     <security-role>

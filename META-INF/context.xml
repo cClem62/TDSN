@@ -1,17 +1,11 @@
-<Context path="/TDSN" docBase="TDSN">
+<Context path="/TDSN" docBase="tdsn" debug="99">
 
   <!-- Definition du pool -->
- <Resource name="mabase" auth="Container" type="javax.sql.DataSource"
-  maxActive="3" maxIdle="1" maxWaitMillis="-1"
-  driverClassName="org.sqlite.JDBC"
-  url="jdbc:sqlite:/home/clement/tomcat/webapps/TDSN/tdsn.db" /> 
-  
-  <!--<Resource name="mabase" auth="Container" type="javax.sql.DataSource"
-  maxActive="3" maxIdle="1" maxWait="10000"
-  username="clement" password="azerty" driverClassName="org.postgresql.Driver"
-  url="jdbc:postgresql://localhost/pr9" />-->
-  
-  
+  <Resource name="tdsn" auth="Container" type="javax.sql.DataSource"
+  maxActive="1" maxIdle="1" maxWait="100"
+  username="tdsn" password="tdsnclement" driverClassName="org.postgresql.Driver"
+  url="jdbc:postgresql://localhost/tdsn" />
+
   <!-- Definition du Realm sans pool -->
 
    <!-- <Realm  className="org.apache.catalina.realm.JDBCRealm" debug="99"
@@ -22,23 +16,17 @@
            userRoleTable="user_roles" roleNameCol="role_name"/>
    -->
 
-   <!-- Definition du Realm via le pool -->
-   <Realm  className="org.apache.catalina.realm.DataSourceRealm"
-           dataSourceName="mabase" localDataSource="true"
+  <!-- Definition du Realm via le pool -->
+   <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
+           algorithm="SHA-256"
+           dataSourceName="tdsn" localDataSource="true"
            userTable="utilisateurs" userNameCol="email" userCredCol="mdp"
-           userRoleTable="user_roles" roleNameCol="role_name"  /> 
-           
-             <!-- Definition du Realm via le pool -->
-   <!--<Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
-           dataSourceName="mabase" localDataSource="true"
-           userTable="users" userNameCol="user_name" userCredCol="user_pass"
-           userRoleTable="user_roles" roleNameCol="role_name"  />-->
+           userRoleTable="user_roles" roleNameCol="role_name"  />
 
 
   <!-- Definition d'une valve d'acces -->
   <Valve className="org.apache.catalina.valves.AccessLogValve"
-           prefix="vide_evolue_access1." suffix=".txt"
+           prefix="tdsn_access1." suffix=".txt"
            pattern="common"/>
  
 </Context>
-

@@ -7,12 +7,16 @@ import java.sql.Statement;
 import java.sql.*;
 
 public class Connexion {
-    private String DBPath = "";
+    private String DBPath;
+    private String nom;
+    private String mdp;
     private Connection connection = null;
     private Statement statement = null;
  
-    public Connexion(String dBPath) {
-        DBPath = dBPath;
+    public Connexion() {
+        this.DBPath="jdbc:postgresql://localhost/tdsn";
+	this.nom="tdsn";
+	this.mdp="tdsnclement";    
     }
 
     public Connection getConnection(){
@@ -21,10 +25,10 @@ public class Connexion {
  
     public void connect() {
         try {
-            Class.forName("org.sqlite.JDBC");
-            connection = DriverManager.getConnection("jdbc:sqlite:" + DBPath);
+            Class.forName("org.postgresql.Driver");
+            connection = DriverManager.getConnection(this.DBPath,this.nom,this.mdp);
             statement = connection.createStatement();
-            System.out.println("Connexion a " + DBPath + " avec succès");
+            System.out.println("Connexion a " + DBPath + " ouverte");
         } catch (ClassNotFoundException notFoundException) {
             notFoundException.printStackTrace();
             System.out.println("Erreur de connecxion");
@@ -37,8 +41,9 @@ public class Connexion {
     public void close() {
         try {
             connection.close();
-            //statement.close();
-        } catch (SQLException e) {
+	    System.out.println("Connexion a "+ DBPath + " fermée");
+            statement.close();
+        }catch (SQLException e) {
             e.printStackTrace();
         }
     }

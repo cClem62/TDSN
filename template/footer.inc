@@ -1,5 +1,5 @@
  <footer>
-        <p>&copy; 2017 TDSN SAC</p>
+        <p>&copy; 2017 TDSN by Cl&eacute;ment.C - Aliment&eacute; avec beaucoup de caf&eacute; et Bootstrap</p>
  </footer>
     </div><!--/.container-->
     <!-- Bootstrap core JavaScript

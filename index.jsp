@@ -32,14 +32,14 @@
     }
   </script>
 
-<%@include file="template/header.inc" %>
+<%@include file="template/header.jsp" %>
 <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
-
+	
 	  <%
 	  String param = request.getParameter("ins");
 	  if(param != null){
@@ -53,10 +53,7 @@
 	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur à eu lieu !</div>");
 	  }	
 	  }
-	  %>
-          <% int a = 1;
-	       if(a == 1){
-	       %>
+	  %>       
           <div class="jumbotron">
               <h1>Bienvenue sur TDSN !</h1>
             <p>Avec TDSN, partagez et restez en contact avec les étudiants de Lille 1.</p>	  	    
@@ -85,69 +82,9 @@
             </div><!--/.col-xs-12.col-lg-8-->
            
           </div><!--/row-->
-	  <% }else{ %>
-	   <div class="row">
-	   	<div class="col-xs-12 col-lg-8">	   
-    <form action="servlet/inscription" method="post" name="form" id="form" class="form-signin">
-        <textarea class="form-control" rows="2" id="publication" name="publication" placeholder="Exprimez-vous"></textarea>
-        <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Publier</button>    
-    </form>
-	   
-	   </div>
-	   
-	 <div class="col-xs-12 col-lg-8">
-	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
-	    <div class="col-xs-12 col-lg-10">
-	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
-		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
-			</p>
-			<span class="pull-right small">Publié il y a 34 secondes</span>
-	    </div>
-	</div>
-
-	 <div class="col-xs-12 col-lg-8">
-	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
-	    <div class="col-xs-12 col-lg-10">
-	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
-		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
-			</p>
-			<span class="pull-right small">Publié il y a 34 secondes</span>
-	    </div>
-	</div>
-
- <div class="col-xs-12 col-lg-8">
-	     <img src="avatar.jpg" style="width:60px;float:left;" class="img-responsive img-thumbnail" alt="Cinque Terre"> 
-	    <div class="col-xs-12 col-lg-10">
-	     	 <h4><b>Aurélia Catrice</b> - énervé(e)</h4>
-		 	<p>J'AI DIT PAS LES MAMANS !!! Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eget massa metus. Nulla eget magna maximus, consectetur libero nec, pretium nulla. Sed blandit leo vel est dictum iaculis. Nulla facilisi. Curabitur nibh turpis, vestibulum sed tortor ac, iaculis varius ligula. Praesent convallis dui ut suscipit mattis. Phasellus nec neque gravida, molestie lacus at, cursus nulla.
-			</p>
-			<span class="pull-right small">Publié il y a 34 secondes</span>
-	    </div>
-	</div>
-
-
-	     </div><!-- row -->
-	   <%
-	  }
-	  %>
-	  
-        </div><!--/.col-xs-12.col-sm-9-->
- <%  if(a == 0){ %>
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-          <div class="list-group">
-            <a href="#" class="list-group-item active">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-          </div>
+	
         </div><!--/.sidebar-offcanvas-->
-	<% } %>
+	
      </div><!--/row-->
       <hr>
   <%@include file="template/footer.inc" %>
