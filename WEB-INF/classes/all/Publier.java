@@ -38,7 +38,7 @@ public class Publier extends HttpServlet{
 
         String source = req.getParameter("source");
 	String texte = req.getParameter("publication");
-	String date="2017-04-01";
+	String date="2017-04-02";
 	String requete ="insert into publications values(DEFAULT,?,?,?);";
 
 	PreparedStatement ps = cc.prepareStatement(requete);

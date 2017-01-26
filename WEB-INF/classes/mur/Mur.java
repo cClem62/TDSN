@@ -20,7 +20,7 @@ public class Mur extends HttpServlet{
 	c.connect();
 	String email = req.getParameter("m");
         
-	String requete ="select * from publications inner join utilisateurs on utilisateur = idUtilisateur where utilisateur=(select idUtilisateur from utilisateurs where email=?);";
+	String requete ="select * from publications inner join utilisateurs on utilisateur = idUtilisateur where utilisateur=(select idUtilisateur from utilisateurs where email=?) ORDER BY date DESC;";
 	Connection cc = c.getConnection();
 	PreparedStatement ps = cc.prepareStatement(requete);
 	ps.setString(1,email);

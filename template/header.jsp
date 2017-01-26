@@ -51,7 +51,11 @@
           	%>
           	<a class="navbar-form navbar-right" href="/TDSN/fil.jsp">Se connecter</a>
           	<%
-          }
+          }else{ %>
+          	  <form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">
+          </form>	
+         <% }
           %>	   
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->

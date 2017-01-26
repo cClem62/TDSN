@@ -13,48 +13,38 @@ public class Amitiees extends HttpServlet{
 	throws ServletException, IOException
     {
 	PrintWriter out = res.getWriter();
-	req.setCharacterEncoding("UTF-8");
+	req.setCharacterEncoding("iso-8859-1");
 	Connexion c = null;
 	try{
 	c = new Connexion();
 	c.connect();
-	
-	String nom = req.getParameter("nom");
-	String prenom = req.getParameter("prenom");
-	String datenaiss = req.getParameter("datenaiss");
-	String email = req.getParameter("email");
-	String mdp = req.getParameter("mdp");
-	String mdpC = req.getParameter("mdpC");
-
-	String verifReq ="select * from utilisateurs where email=?;";
+	String email = req.getParameter("m");
+        
+	String requete ="SELECT * FROM amitiees AS a JOIN utilisateurs AS u ON u.idUtilisateur = a.utilisateurB WHERE utilisateurA =(SELECT idutilisateur FROM utilisateurs WHERE email=?);";
 	Connection cc = c.getConnection();
-	PreparedStatement pps = cc.prepareStatement(verifReq);
-	pps.setString(1, email);
-	ResultSet rs = pps.executeQuery();
-	String retour = null;
-	if(rs.next()){
-	    retour = rs.getString("email");
-	}else{
-	    retour =""; 
+	PreparedStatement ps = cc.prepareStatement(requete);
+	ps.setString(1,email);
+   ResultSet rs = ps.executeQuery();
+	String xml="";
+	int i=1;
+	xml +="<?xml version ='1.0' encoding='ISO-8859-1' standalone='yes' ?>\n";
+	/*xml +="<!DOCTYPE publications [\n<!ENTITY e-accent-aigu '&#233;'>\n<!ENTITY c-cedille '&#231;'>]>";*/
+	xml +="<utilisateurs>";
+        while(rs.next()){
+	    xml +="<utilisateur>\n";
+	    xml +="<idutilisateur>" + rs.getString("utilisateurb") + "</idutilisateur>\n";
+	    xml +="<email>"+ rs.getString("email") +"</email>\n";
+	    xml +="<nom>"+ rs.getString("nom") +"</nom>\n";
+	    xml +="<prenom>"+ rs.getString("prenom") +"</prenom>\n";
+	    xml +="<datenaissance>"+ rs.getString("datenaissance") +"</datenaissance>\n";
+	    xml +="<dateamitiees>"+ rs.getString("date") +"</dateamitiees>\n";
+	    xml +="</utilisateur>\n";
+	    i++;
 	}
-	if(retour.trim() == ""){
-	if(mdp.equals(mdpC)){
-	   String s = "insert into utilisateurs values(NULL,?,?,?,?,?);";
-	   PreparedStatement ps = cc.prepareStatement(s);
-	   ps.setString(1,nom);
-	   ps.setString(2,prenom);
-	   ps.setString(3, datenaiss);
-	   ps.setString(4, email);
-	   ps.setString(5, mdp);
-	   ps.executeUpdate();
-	   c.close();
-	   res.sendRedirect("../index.jsp?ins=true");
-	}else{
-	     res.sendRedirect("../index.jsp?ins=mdp");
-	}
-	}else{
-	     res.sendRedirect("../index.jsp?ins=exist");
-	}
+	xml +="</utilisateurs>";
+        out.println(xml);
+	c.close();	   
+      
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
 	}

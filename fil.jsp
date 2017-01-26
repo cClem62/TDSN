@@ -29,7 +29,7 @@
 			c.connect();
 			String user = request.getRemoteUser();  
 			String requete="";
-			requete +="SELECT * FROM publications INNER JOIN utilisateurs ON utilisateur = idUtilisateur WHERE utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') OR utilisateur=(utilisateurs.idutilisateur) ORDER BY date);"; 
+			requete +="SELECT * FROM publications INNER JOIN utilisateurs ON utilisateur = idUtilisateur WHERE utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') OR utilisateur=(utilisateurs.idutilisateur) ORDER BY date DESC);"; 
 			Connection cc = c.getConnection();
 			PreparedStatement ps = cc.prepareStatement(requete);
 			ResultSet rs = ps.executeQuery();

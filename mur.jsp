@@ -14,7 +14,7 @@
       parseXml(responseText);
       })
         .fail(function( data ) {
-    alert( "EchÃ©c" );
+    alert( "Echéc" );
       });
       }
          
@@ -38,6 +38,39 @@
     		$("#display").html(disp);
       } 
       $(document).ready(appel());    
+      
+      function charge_amis(){
+		 var mail = $("#e").val();     
+       $.get('http://localhost:8080/TDSN/servlet/amitiees?m=' + mail,function(responseText) {
+      	parseXml_amis(responseText);
+     	 })
+        .fail(function( data ) {
+    		 	alert( "Echéc" );
+      });
+      }
+      
+      function parseXml_amis(xml){		
+			$xml = $( $.parseXML( xml ) );
+			var disp="";
+         $xml.find("utilisateur").each(function(){
+      	var user = $(this).find("idutilisateur").text();   
+      	var mail = $(this).find("email").text();  
+      	var nom = $(this).find("nom").text();   
+      	var prenom = $(this).find("prenom").text();    
+      	var datenaiss = $(this).find("datenaissance").text();
+      	var datea = $(this).find("dateamitiees").text();                      	
+      	disp +="<div class='col-xs-12 col-lg-8'>" +
+	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
+	    	"<div class='col-xs-9 col-lg-10'>" +
+	   	"<h4><b>" + nom + " " + prenom +"</b> - insociable(e)</h4>" +
+		 	"<p>nombre d'amis</p>" +
+			"<span class='pull-right small'>Amis depuis le " + datea + "</span>" +
+	      "</div>"+
+			"</div>";
+    		});
+    		$("#display").html(disp);
+      } 
+      
     </script> 
   
 <div class="row row-offcanvas row-offcanvas-right">
@@ -49,9 +82,9 @@
 
  <div class="col-xs-6 col-sm-2 sidebar-offcanvas menu-tdsn" id="sidebar">
           <div class="list-group">
-            <a href="#" class="list-group-item active">Journal</a>
+            <a onclick="appel()" class="list-group-item active">Journal</a>
             <a href="#" class="list-group-item">A propos</a>
-            <a href="#" class="list-group-item">Amis</a>
+            <a onclick="charge_amis()" class="list-group-item">Amis</a>
             <a href="#" class="list-group-item">Photos</a>
           </div>
 </div><!--/.sidebar-offcanvas-->
