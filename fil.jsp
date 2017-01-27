@@ -23,7 +23,7 @@
 	   </div>
 	   <%@ page import="java.sql.*, java.io.*, java.net.*" %>
 	   <%@ page import="db.Connexion" %>
-	<%
+    	<%
 	 	try{
 	 	   Connexion c = new Connexion();
 			c.connect();
@@ -36,12 +36,22 @@
 			String disp;
 			
 			while(rs.next()){
+			int idpub = rs.getInt("idpublication");
+			String req1 ="SELECT count(*) AS nbJaime FROM jaime WHERE publi_id=?";
+			PreparedStatement ps1 = cc.prepareStatement(req1);
+			ps1.setInt(1, idpub);
+			ResultSet rs1 = ps1.executeQuery();
+			int nbjaime=0;			
+			if(rs1.next()){
+				nbjaime = rs1.getInt("nbJaime");
+			}
 			%>
 				<div class='col-xs-12 col-lg-8'>
 	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b> - insociable(e)</h4>
 		 	   <p><%= rs.getString("contenu")%></p>
+		 	   <p class="small"><%= nbjaime %> j'aime <span><a href="" style="margin-left:6px;">J'aime </a><a href="" style="margin-left:6px;"> Je n'aime pas</a></span></p>
 		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
 	         </div>
 			   </div>

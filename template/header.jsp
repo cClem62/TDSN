@@ -52,8 +52,9 @@
           	<a class="navbar-form navbar-right" href="/TDSN/fil.jsp">Se connecter</a>
           	<%
           }else{ %>
-          	  <form class="navbar-form navbar-right">
+          	  <form action="recherche.jsp" method="post" class="navbar-form navbar-right">
             <input type="text" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">
+            <button type="submit" class="btn btn-primary btn-md">OK</button>
           </form>	
          <% }
           %>	   
