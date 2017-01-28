@@ -58,7 +58,7 @@
 				<div id="<%= idp %>" style="display:none;"><%= idp %></div>
 	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></h4>
+	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></a></h4>
 		 	   <p><%= rs.getString("contenu")%></p>
 		 	   <p class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a><a href="" style="margin-left:6px;"> Je n'aime pas</a></span></p>
 		 	  <p id="msg"></p>

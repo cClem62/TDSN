@@ -19,68 +19,43 @@
 
 	   <div class="col-xs-12 col-lg-12">
  
-     <form method="post" name="form" id="form" class="navbar-form form-signin">
+     <form action="" method="post" name="form" id="form" class="navbar-form form-signin">
           
-            <input type="text" class="form-control" placeholder="Email">
+            <input name="recherche" type="text" class="form-control" placeholder="Email">
             <button type="submit" class="btn btn-primary btn-md">OK</button>
-            <span style="margin:0 25px 0 25px;" class="big">OU</span>
-             <input type="text" class="form-control" placeholder="Prenom Nom">
-            <button type="submit" class="btn btn-primary btn-md">OK</button>
-            
+              
      </form>	
-   
-          
-           
-            
-    
-  
-          <div name="display">
-
+   	<div name="display" style="margin-top:10%;">
+      <%@ page import="java.sql.*, java.io.*, java.net.*" %>
+	   <%@ page import="db.Connexion" %>
+    	<%
+	 	try{
+	      Connexion c = new Connexion();
+			c.connect();
+			String user = request.getRemoteUser();  
+			String rch = request.getParameter("recherche");
+			rch +="%";
+			String req1 ="select * from utilisateurs where email LIKE ? ;";	
+			Connection cc = c.getConnection();
+			PreparedStatement ps = cc.prepareStatement(req1);
+			ps.setString(1, rch);
+			ResultSet rs = ps.executeQuery();
+         while(rs.next()){
+			%>          
+        
 				<div class='col-xs-12 col-lg-6'>
 	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><b>Aurélia Catrice</b></h4>
-		 	   <p>aurelia.catrice@univ-lille1.fr</p> 	  
-		 	   <span class='pull-right small'>Membre depuis le..</span>
+	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("idutilisateur") %>' style=""><b><%= rs.getString("prenom") + " " + rs.getString("nom") %></b></a></h4>
+		 	   <p><%= rs.getString("email") %></p> 	  
+		 	   <span class='pull-right small'>Membre depuis le (pas dans la bdd)</span>
 	         </div>
 			   </div>  
-			  
-			  
-			    
-			   <div class='col-xs-12 col-lg-6'>
-	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
-	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><b>Clément Cantraine</b></h4>
-		 	   <p>clement.cantraine@univ-lille1.fr</p>		 	  
-		 	   <span class='pull-right small'>Membre depuis le..</span>
-	         </div>
-			   </div>      
-			   
-			   
-			   
-			   <div class='col-xs-12 col-lg-6'>
-	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
-	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><b>Antoine Bonte</b></h4>
-		 	   <p>antoine.bonte@univ-lille1.fr</p>	 	  
-		 	   <span class='pull-right small'>Membre depuis le..</span>
-	         </div>
-			   </div>     
-			   
-			   <div class='col-xs-12 col-lg-6'>
-	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
-	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><b>Sylvain Coolsaet</b></h4>
-		 	   <p>sylvain.coolsaet@univ-lille1.fr</p>	 	  
-		 	   <span class='pull-right small'>Membre depuis le..</span>
-	         </div>
-			   </div>       
-          
-          </div>
-
-
-      </div><!--/.col-xs-12.col-lg-8-->
-           
+			  <% }
+			  }catch(Exception e){
+			  } %>			 
+		</div><!-- .display    -->  
+      	</div><!--/.col-xs-12.col-lg-8-->          
           </div><!--/row-->
 	
         </div><!--/.sidebar-offcanvas-->

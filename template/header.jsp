@@ -49,11 +49,13 @@
              <%
           if(request.getRemoteUser() ==null){
           	%>
-          	<a class="navbar-form navbar-right" href="/TDSN/fil.jsp">Se connecter</a>
+          	 <ul class="nav navbar-nav navbar-right">
+          	 <li class="active"><a href="/TDSN/fil.jsp">Se connecter</a></li>   
+           	</ul>
           	<%
           }else{ %>
           	  <form action="recherche.jsp" method="post" class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">
+            <input type="text" name="recherche" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">
             <button type="submit" class="btn btn-primary btn-md">OK</button>
           </form>	
          <% }

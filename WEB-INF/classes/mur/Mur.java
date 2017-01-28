@@ -26,9 +26,7 @@ public class Mur extends HttpServlet{
 	ps.setString(1,email);
    ResultSet rs = ps.executeQuery();
 	String xml="";
-	int i=1;
 	xml +="<?xml version ='1.0' encoding='ISO-8859-1' standalone='yes' ?>\n";
-	xml +="<!DOCTYPE publications [\n<!ENTITY e-accent-aigu '&#233;'>\n<!ENTITY c-cedille '&#231;'>]>";
 	xml +="<publications>";
         while(rs.next()){
 	    xml +="<publication>\n";
@@ -36,7 +34,6 @@ public class Mur extends HttpServlet{
 	    xml +="<contenu>"+ rs.getString("contenu") +"</contenu>\n";
 	    xml +="<date>"+ rs.getString("date") +"</date>\n";
 	    xml +="</publication>\n";
-	    i++;
 	}
 	xml +="</publications>";
         out.println(xml);
