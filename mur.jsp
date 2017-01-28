@@ -4,18 +4,18 @@
 <%@include file="template/header.jsp" %>
 <input style="display:none;" id="e" value="<%=request.getRemoteUser()%>" />
 
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="js/jquery-3.1.1.min.js"></script>
 
 <script>
 		var disp;	
       function appel() {
       var mail = $("#e").val();     
-       $.get('http://localhost:8080/TDSN/servlet/mur?m=' + mail,function(responseText) {
+       $.get('servlet/mur?m=' + mail,function(responseText) {
       parseXml(responseText);
       })
         .fail(function( data ) {
     alert( "Echéc" );
-      });
+      });	
       }
          
       function parseXml(xml){		
@@ -29,7 +29,7 @@
       	disp +="<div class='col-xs-12 col-lg-8'>" +
 	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
-	   	"<h4><b>" + user +"</b> - insociable(e)</h4>" +
+	   	"<h4><b>" + user +"</b></h4>" +
 		 	"<p>" + txt +"</p>" +
 			"<span class='pull-right small'>" + date + "</span>" +
 	      "</div>"+
@@ -41,7 +41,7 @@
       
       function charge_amis(){
 		 var mail = $("#e").val();     
-       $.get('http://localhost:8080/TDSN/servlet/amitiees?m=' + mail,function(responseText) {
+       $.get('servlet/amitiees?m=' + mail,function(responseText) {
       	parseXml_amis(responseText);
      	 })
         .fail(function( data ) {
@@ -62,7 +62,7 @@
       	disp +="<div class='col-xs-12 col-lg-8'>" +
 	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
-	   	"<h4><b>" + nom + " " + prenom +"</b> - insociable(e)</h4>" +
+	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
 		 	"<p>nombre d'amis</p>" +
 			"<span class='pull-right small'>Amis depuis le " + datea + "</span>" +
 	      "</div>"+
@@ -98,7 +98,7 @@
     </form>  
 	 </div>
 	
-	 <div id="display"></div>
+	 <div style="margin-top:15%;" id="display"></div>
 	 
 
 </div><!-- row-offcanvas -->

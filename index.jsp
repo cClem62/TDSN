@@ -1,15 +1,15 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@include file="template/header.jsp" %>
+<%@ page pageEncoding="ISO-8859-1"%>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script type="text/javascript">      
      $(document).ready(appel());
       function appel() 
       {
-          var e = $('#email').val();
-	  
+          var e = $('#email').val();	  
            $.get('http://localhost:8080/TDSN/servlet/verifInscription?email='+e,function(responseText)
            {
 	      if(responseText.trim() !=""){
-	      $('#msg').html("<b style='color:red;'>Adresse déjà utilisé</b>");
+	      $('#msg').html("<b style='color:red;'>Adresse déjà utilisée</b>");
 	      }else{
 	      $('#msg').html("");
 	      }
@@ -31,8 +31,6 @@
     }
     }
   </script>
-
-<%@include file="template/header.jsp" %>
 <div class="row row-offcanvas row-offcanvas-right">
 
         <div class="col-xs-12 col-sm-9">
@@ -46,11 +44,11 @@
 	  if(param.equals("true")){
 	  out.println("<div class='alert alert-success' role='alert'>Félicitations ! Vous faites maintenant parti(e) de TDSN ! Connectez vous !</div>");
 	  }else if(param.equals("exist")){
-		 out.println("<div class='alert alert-warning' role='alert'>Oups ! L'adresse email est déjà prise !</div>");
+		 out.println("<div class='alert alert-warning' role='alert'>Oups ! L'adresse email est déjà  prise !</div>");
 	  }else if(param.equals("mdp")){
 	  	out.println("<div class='alert alert-warning' role='alert'>Oups ! Les mots de passe sont différents !</div>");
 	  }else{
-	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur à eu lieu !</div>");
+	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur à eu lieu !</div>");
 	  }	
 	  }
 	  %>       

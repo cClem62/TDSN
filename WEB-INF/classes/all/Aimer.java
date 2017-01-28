@@ -7,13 +7,13 @@ import javax.servlet.annotation.WebServlet;
 import java.sql.*;
 import db.Connexion;
 
-@WebServlet("/servlet/publier")
+@WebServlet("/servlet/aimer")
 public class Aimer extends HttpServlet{
     public void service( HttpServletRequest req, HttpServletResponse res )
 	throws ServletException, IOException
     {
 	PrintWriter out = res.getWriter();
-	req.setCharacterEncoding("iso-8859-1");
+	req.setCharacterEncoding("ISO-8859-1");
 	Connexion c = null;
 	try{
 	c = new Connexion();
@@ -21,17 +21,20 @@ public class Aimer extends HttpServlet{
 
 	/* PARTIE RECUPERAION ID PAR RAPPORT AU EMAIL */
 	String m = req.getParameter("user");
-        int idpub = (int)req.getParameter("id");
-	String requete ="insert into jaime values(DEFAULT, ?,?);";
+	int idpub = Integer.parseInt(req.getParameter("id"));
+	String requete ="insert into jaime values(?, (SELECT idutilisateur FROM utilisateurs WHERE email=?));";
 	Connection cc = c.getConnection();
 	PreparedStatement ps = cc.prepareStatement(requete);
-	ps.setString(1, m);
-	ps.setInt(2, idpub);
+	ps.setInt(1, idpub);
+	ps.setString(2, m);
 	ResultSet rs = ps.executeQuery();
+
+	    out.println("Vous aimez");
 	
 	c.close();	   
 	}catch(Exception e){
-	     out.println("<h2>"+e+"</h2>");
+	    out.println("<h2>"+e+"</h2>");
+	    //out.println("Vous avez déjà aimé");
 	}
     }
 }

@@ -13,7 +13,7 @@ public class Publier extends HttpServlet{
 	throws ServletException, IOException
     {
 	PrintWriter out = res.getWriter();
-	req.setCharacterEncoding("iso-8859-1");
+	req.setCharacterEncoding("ISO-8859-1");
 	Connexion c = null;
 	try{
 	c = new Connexion();
@@ -39,12 +39,14 @@ public class Publier extends HttpServlet{
         String source = req.getParameter("source");
 	String texte = req.getParameter("publication");
 	String date="2017-04-02";
-	String requete ="insert into publications values(DEFAULT,?,?,?);";
 
+	String requete ="insert into publications values(DEFAULT,?,?,?);";
 	PreparedStatement ps = cc.prepareStatement(requete);
+	
 	ps.setInt(1,iduser);
 	ps.setString(2, texte);
-	ps.setString(3, date);
+        java.sql.Timestamp  sqlDate = new java.sql.Timestamp(new java.util.Date().getTime());
+        ps.setTimestamp(3, sqlDate);
         ps.executeUpdate();
         res.sendRedirect("../" + source);  
 	c.close();	   

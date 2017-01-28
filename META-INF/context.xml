@@ -18,7 +18,7 @@
 
   <!-- Definition du Realm via le pool -->
    <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
-           algorithm="SHA-256"
+           algorithm="md5"			
            dataSourceName="tdsn" localDataSource="true"
            userTable="utilisateurs" userNameCol="email" userCredCol="mdp"
            userRoleTable="user_roles" roleNameCol="role_name"  />

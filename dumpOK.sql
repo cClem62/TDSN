@@ -60,8 +60,9 @@ ALTER TABLE amitiees OWNER TO tdsn;
 --
 
 CREATE TABLE jaime (
+    jaime_id integer NOT NULL,
     publi_id integer NOT NULL,
-    utilisateur integer NOT NULL
+    utilisateur integer
 );
 
 
@@ -232,6 +233,28 @@ COPY amitiees (utilisateura, utilisateurb, date) FROM stdin;
 --
 
 COPY jaime (jaime_id, publi_id, utilisateur) FROM stdin;
+1	7	1
+3	16	2
+4	17	2
+5	17	2
+6	17	2
+7	17	2
+1	17	2
+2	17	2
+3	17	2
+8	17	2
+9	17	2
+10	17	2
+11	17	2
+12	17	2
+13	17	2
+14	17	2
+15	17	2
+16	17	2
+17	17	2
+18	17	2
+19	17	2
+20	17	2
 \.
 
 
@@ -239,7 +262,7 @@ COPY jaime (jaime_id, publi_id, utilisateur) FROM stdin;
 -- Name: jaime_jaime_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tdsn
 --
 
-SELECT pg_catalog.setval('jaime_jaime_id_seq', 1, false);
+SELECT pg_catalog.setval('jaime_jaime_id_seq', 20, true);
 
 
 --
@@ -256,6 +279,7 @@ COPY publications (idpublication, utilisateur, contenu, date) FROM stdin;
 14	2	"Pas les mamans" comme dirait aurélia !	2017-04-01
 15	2	Aller je travaille un peu, histoire de me réveiller !	2017-04-01
 16	2	J'aime la FRANCE	2017-04-02
+17	2	C'est dur comme projet !! 	2017-04-02
 \.
 
 
@@ -324,7 +348,7 @@ ALTER TABLE ONLY amitiees
 --
 
 ALTER TABLE ONLY jaime
-    ADD CONSTRAINT jaime_pkey PRIMARY KEY (publi_id, utilisateur);
+    ADD CONSTRAINT jaime_pkey PRIMARY KEY (jaime_id, publi_id);
 
 
 --
@@ -406,13 +430,7 @@ ALTER TABLE ONLY publications
 ALTER TABLE ONLY visibilitee
     ADD CONSTRAINT fk_visibilite_utilisateurs FOREIGN KEY (utilisateur) REFERENCES utilisateurs(idutilisateur);
 
----
---- Name : fk_user_roles_utilisateurs
----
-ALTER TABLE ONLY user_roles
-    ADD CONSTRAINT fk_user_roles_utilisateurs FOREIGN KEY (email) REFERENCES utilisateurs(email);
-	
-	
+
 --
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -426,5 +444,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
 
