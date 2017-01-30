@@ -1,5 +1,4 @@
 package all;
-
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -38,6 +37,7 @@ public class Publier extends HttpServlet{
 
         String source = req.getParameter("source");
 	String texte = req.getParameter("publication");
+	//texte = StringEscapeUtils.escapeHtml(texte);
 	String date="2017-04-02";
 
 	String requete ="insert into publications values(DEFAULT,?,?,?);";
@@ -48,11 +48,11 @@ public class Publier extends HttpServlet{
         java.sql.Timestamp  sqlDate = new java.sql.Timestamp(new java.util.Date().getTime());
         ps.setTimestamp(3, sqlDate);
         ps.executeUpdate();
+        c.close();
         res.sendRedirect("../" + source);  
-	c.close();	   
-      
+       
 	}catch(Exception e){
-	     out.println("<h2>"+e+"</h2>");
+	     out.println("<h2>"+e+"</h2>");	   
 	}
     }
 }

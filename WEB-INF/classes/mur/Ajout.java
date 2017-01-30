@@ -38,13 +38,12 @@ public class Ajout extends HttpServlet{
 	ps1.setInt(1,idB);
 	ps1.setDate(3, new java.sql.Date(today.getTime()));
         ps1.executeUpdate();
-
+        c.close();
 	out.println("Ajouté !");
-	
-	c.close();	   
-      
+	     
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
+	     c.close();
 	}
     }
 }

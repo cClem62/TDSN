@@ -42,11 +42,11 @@ public class Amitiees extends HttpServlet{
 	    i++;
 	}
 	xml +="</utilisateurs>";
-        out.println(xml);
-	c.close();	   
-      
+        out.println(xml);   
+        c.close();
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
+	     c.close();
 	}
     }
 }

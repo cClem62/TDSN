@@ -33,7 +33,7 @@
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + user +"</b></h4>" +
 		 	"<p>" + txt +"</p>" +
-         "<p class='small'>" + jaime + " j'aime <span><a onclick='appel(" + idp +")' style='margin-left:6px;'>J'aime </a><a href='' style='margin-left:6px;'> Je n'aime pas</a></span></p>"+
+         "<p class='small'>" + jaime + " j'aime <span><a onclick='appel(" + idp +")' style='margin-left:6px;'>J'aime </a></span></p>"+
 			"<span class='pull-right small'>" + date + "</span>" +
 	      "</div>"+
 			"</div>";
@@ -66,7 +66,7 @@
 	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
-		 	"<p>nombre d'amis</p>" +
+		 	"<p>" + mail + "</p>" +
 			"<span class='pull-right small'>Amis depuis le " + datea + "</span>" +
 	      "</div>"+
 			"</div>";

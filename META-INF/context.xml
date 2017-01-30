@@ -2,26 +2,29 @@
 
   <!-- Definition du pool -->
   <Resource name="tdsn" auth="Container" type="javax.sql.DataSource"
-  maxActive="1" maxIdle="1" maxWait="100"
+  maxActive="3" maxIdle="3" maxWait="100"
   username="tdsn" password="tdsnclement" driverClassName="org.postgresql.Driver"
   url="jdbc:postgresql://localhost/tdsn" />
 
   <!-- Definition du Realm sans pool -->
 
-   <!-- <Realm  className="org.apache.catalina.realm.JDBCRealm" debug="99"
+  <!-- <Realm  className="org.apache.catalina.realm.JDBCRealm" debug="99"
            driverName="org.postgresql.Driver"
            connectionURL="jdbc:postgresql://localhost/pr9"
 	   connectionName="clement" connectionPassword="azerty"
            userTable="users" userNameCol="user_name" userCredCol="user_pass"
            userRoleTable="user_roles" roleNameCol="role_name"/>
-   -->
+  -->
 
   <!-- Definition du Realm via le pool -->
-   <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"
-           digest="md5"			
+   <Realm  className="org.apache.catalina.realm.DataSourceRealm" debug="99"			
            dataSourceName="tdsn" localDataSource="true"
            userTable="utilisateurs" userNameCol="email" userCredCol="mdp"
-           userRoleTable="user_roles" roleNameCol="role_name"/>
+           userRoleTable="user_roles" roleNameCol="role_name">
+	<CredentialHandler
+		className="org.apache.catalina.realm.MessageDigestCredentialHandler"
+		algorithm="md5" />
+    </Realm>
 
 
   <!-- Definition d'une valve d'acces -->

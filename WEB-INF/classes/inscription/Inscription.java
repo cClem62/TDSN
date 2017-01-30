@@ -7,7 +7,6 @@ import javax.servlet.annotation.WebServlet;
 import java.sql.*;
 import java.util.Date;
 import db.Connexion;
-
 @WebServlet("/servlet/inscription")
 public class Inscription extends HttpServlet{
     public void service( HttpServletRequest req, HttpServletResponse res )
@@ -22,11 +21,10 @@ public class Inscription extends HttpServlet{
 	
 	String nom = req.getParameter("nom");
 	String prenom = req.getParameter("prenom");
-        String datenaiss = req.getParameter("datenaiss");
+   String datenaiss = req.getParameter("datenaiss");
 	String email = req.getParameter("email");
 	String mdp = req.getParameter("mdp");
 	String mdpC = req.getParameter("mdpC");
-
 	String verifReq ="select * from utilisateurs where email=?;";
 	Connection cc = c.getConnection();
 	PreparedStatement pps = cc.prepareStatement(verifReq);
@@ -40,9 +38,10 @@ public class Inscription extends HttpServlet{
 	}
 	if(retour.trim() == ""){
 	if(mdp.equals(mdpC)){
-	    
-	   String s = "insert into utilisateurs(email,nom,prenom,datenaissance,mdp) values(?,?,?,?,?);";
-	   PreparedStatement ps = cc.prepareStatement(s);
+
+	    // J'ajoute l'utilisateur même dans la base de données 
+	   String s = "insert into utilisateurs(email,nom,prenom,datenaissance,mdp) values(?,?,?,?,MD5(?));";
+	   PreparedStatement ps = c.getConnection().prepareStatement(s);
 	   ps.setString(1,email);
 	   ps.setString(2,nom);
 	   ps.setString(3, prenom);
@@ -50,32 +49,40 @@ public class Inscription extends HttpServlet{
 	   ps.setString(5, mdp);
 	   ps.executeUpdate();
 
-
-	   String r = "insert into user_roles values(?,'membre');";
-	   PreparedStatement ps1 = cc.prepareStatement(r);
+	   // J'ajoute son role
+	   String rr = "insert into user_roles values(?,'membre');";
+	   PreparedStatement ps1 = cc.prepareStatement(rr);
 	   ps1.setString(1,email);
 	   ps1.executeUpdate();
 
+	   // Je publie un msg comme quoi la personne vient de s'inscrire
 	   String msg ="Viens de rejoindre la grande famille TDSN Lille 1, \n souhaitez lui la bienvenue :)";
 	   String rNotif ="insert into publications values(DEFAULT,(SELECT MAX(idutilisateur) FROM utilisateurs), ?, ?);";
-	   PreparedStatement ps2 = cc.prepareStatement(rNotif);
+	   PreparedStatement ps2 = c.getConnection().prepareStatement(rNotif);
 	   ps2.setString(1, msg);
 	   java.sql.Timestamp  sqlDate = new java.sql.Timestamp(new java.util.Date().getTime());
            ps2.setTimestamp(2, sqlDate);
 	   ps2.executeUpdate();
-	
+
+	   // J'insert la position de confidentialité de son mur (par défaut : amis)
+	   String rc = "insert into visibilitee values((SELECT MAX(idutilisateur) FROM utilisateurs),'Amis');";
+	   PreparedStatement ps3 = cc.prepareStatement(rc);
+	   ps3.executeUpdate();
+
+	   
 	   c.close();
 	   res.sendRedirect("../index.jsp?ins=true");
 	}else{
-	     c.close();
+		  c.close();
 	     res.sendRedirect("../index.jsp?ins=mdp");
 	}
 	}else{
-	    	c.close();
+	     c.close();
 	     res.sendRedirect("../index.jsp?ins=exist");
 	}
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
+	     c.close();
 	}
     }
 }

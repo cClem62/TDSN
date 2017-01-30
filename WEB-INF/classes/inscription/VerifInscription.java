@@ -29,10 +29,11 @@ public class VerifInscription extends HttpServlet{
 	out.println(rs.getString("email"));
 	}//else{
 	// out.println("Email libre");
-	c.close();
-	//}       
+	//}  
+		c.close();     
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
+	     c.close();
 	}
     }
 }

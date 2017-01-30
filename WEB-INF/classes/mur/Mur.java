@@ -20,11 +20,11 @@ public class Mur extends HttpServlet{
 	c.connect();
 	String email = req.getParameter("m");
         
-	String requete ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email=?) GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom;";
+	String requete ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email=?) GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom ORDER BY date DESC;";
 	Connection cc = c.getConnection();
 	PreparedStatement ps = cc.prepareStatement(requete);
-	ps.setString(1,email);
-        ResultSet rs = ps.executeQuery();
+	ps.setString(1,email);	
+   ResultSet rs = ps.executeQuery(); 
 	String xml="";
 	xml +="<?xml version ='1.0' encoding='ISO-8859-1' standalone='yes' ?>\n";
 	xml +="<publications>";
@@ -39,10 +39,10 @@ public class Mur extends HttpServlet{
 	}
 	xml +="</publications>";
         out.println(xml);
-	c.close();	   
-      
+        c.close(); 
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
+	     c.close();
 	}
     }
 }

@@ -10,7 +10,7 @@
               <h1>Vos paramètres</h1><br/>
            <div style="text-align:center; margin:40px 0 40px 0;"> 
            <h2>Mot de passe</h2>
-           <a class="btn btn-primary btn-lg" role="button">Modifier mot de passe</a>  	
+           <a class="btn btn-primary btn-lg" role="button">Modifier mot de passe [DON'T WORK]</a>  	
            </div>
            <div style="text-align:center; margin:80px 0 40px 0;">
            <h2>Confidentialité</h2>

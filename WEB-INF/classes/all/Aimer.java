@@ -9,8 +9,8 @@ import db.Connexion;
 
 @WebServlet("/servlet/aimer")
 public class Aimer extends HttpServlet{ 
-    public abstract void service( HttpServletRequest req, HttpServletResponse res ) 
-	throws ServletException, IOException, SQLException
+    public void service( HttpServletRequest req, HttpServletResponse res ) 
+	throws ServletException, IOException
     {
 	PrintWriter out = res.getWriter();
 	req.setCharacterEncoding("ISO-8859-1");
@@ -27,8 +27,10 @@ public class Aimer extends HttpServlet{
 	ps.setInt(1, idpub);
 	ps.setString(2, m);
    ps.executeQuery();
+   c.close();
 	}catch(Exception e){
 	    out.println("<h2>" + e + "</h2>");
+	    c.close();
 	    //out.println("Vous avez déjà aimé");
 	}
    }

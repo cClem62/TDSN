@@ -33,12 +33,13 @@
 	      Connexion c = new Connexion();
 			c.connect();
 			String user = request.getRemoteUser();  
-			String rch = request.getParameter("recherche");
+			String rch = request.getParameter("recherche"); 	
 			rch +="%";
-			String req1 ="select * from utilisateurs where email LIKE ? ;";	
+			String req1 ="select * from utilisateurs where email LIKE ? AND email !=? ;";	
 			Connection cc = c.getConnection();
 			PreparedStatement ps = cc.prepareStatement(req1);
 			ps.setString(1, rch);
+			ps.setString(2, user);
 			ResultSet rs = ps.executeQuery();
          while(rs.next()){
 			%>          
@@ -52,6 +53,7 @@
 	         </div>
 			   </div>  
 			  <% }
+			  c.close();
 			  }catch(Exception e){
 			  } %>			 
 		</div><!-- .display    -->  

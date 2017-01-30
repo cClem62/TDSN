@@ -57,7 +57,8 @@
           	<%
           }else{ %>
           	  <form action="recherche.jsp" method="post" class="navbar-form navbar-right">
-            <input type="text" name="recherche" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">          
+            <input type="text" name="recherche" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">
+            <input type="text" name="utilisateur" style="display:none;" >
             <button type="submit" class="btn btn-primary btn-md">OK</button>
           </form>	
          <% }

@@ -5,12 +5,19 @@
 
 <script type="text/javascript" >	
       var user = $("#e").val();
-      alert(idpub);	
-      alert(user);
       function appel(idpub) {
       var mail = $("#e").val();     
        $.get('servlet/aimer?user=' + user + '&id=' + idpub ,function(responseText) {
-       $("#jaime" + idpub).html(responseText);
+       donnejaime(idpub);
+      })
+        .fail(function( data ) {
+    alert( "Echec" );
+      });	
+      }
+      
+      function donnejaime(id) {
+       $.get('servlet/donnerjaime?idpub=' + id + '&id=' + id ,function(responseText) {
+        $("#jaime" + id).html(responseText)
       })
         .fail(function( data ) {
     alert( "Echec" );
@@ -50,7 +57,7 @@
 			PreparedStatement ps = cc.prepareStatement(requete);
 			ResultSet rs = ps.executeQuery();
 			String disp;
-		   c.close();	
+		
 			while(rs.next()){			
 			String idp = rs.getString("idpublication");
 			%>
@@ -60,14 +67,15 @@
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></a></h4>
 		 	   <p><%= rs.getString("contenu")%></p>
-		 	   <p id="jaime<%=idp%>" class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a><a href="" style="margin-left:6px;"> Je n'aime pas</a></span></p>	 	 
+		 	   <p id="jaime<%=idp%>" class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a></span></p>	 	 
 		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
 	         </div>
 			   </div>
 			   <%
 			   }			
+			   c.close();
 	 	}catch(Exception e){
-	     out.println("<h2>"+e+"</h2>");		
+	     out.println("<h2>"+e+"</h2>");			
 			}				
 	%>
     </div>
