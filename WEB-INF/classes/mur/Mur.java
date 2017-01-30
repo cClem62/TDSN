@@ -20,19 +20,21 @@ public class Mur extends HttpServlet{
 	c.connect();
 	String email = req.getParameter("m");
         
-	String requete ="select * from publications inner join utilisateurs on utilisateur = idUtilisateur where utilisateur=(select idUtilisateur from utilisateurs where email=?) ORDER BY date DESC;";
+	String requete ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email=?) GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom;";
 	Connection cc = c.getConnection();
 	PreparedStatement ps = cc.prepareStatement(requete);
 	ps.setString(1,email);
-   ResultSet rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
 	String xml="";
 	xml +="<?xml version ='1.0' encoding='ISO-8859-1' standalone='yes' ?>\n";
 	xml +="<publications>";
         while(rs.next()){
 	    xml +="<publication>\n";
+	    xml +="<idpublication>" +  rs.getString("idpublication") + "</idpublication>\n";
 	    xml +="<utilisateur>" +  rs.getString("nom") + " " + rs.getString("prenom")+ "</utilisateur>\n";
 	    xml +="<contenu>"+ rs.getString("contenu") +"</contenu>\n";
 	    xml +="<date>"+ rs.getString("date") +"</date>\n";
+	    xml +="<jaime>"+ rs.getString("nbjaime") +"</jaime>\n";
 	    xml +="</publication>\n";
 	}
 	xml +="</publications>";

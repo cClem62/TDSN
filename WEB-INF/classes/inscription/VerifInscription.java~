@@ -21,7 +21,7 @@ public class VerifInscription extends HttpServlet{
 	c.connect();
 	
 	String email = req.getParameter("email");
-	String verifReq="select * from utilisateurs where email = ?;";
+	String verifReq="select * from utilisateurs where email = ?; ";
    PreparedStatement ps = c.getConnection().prepareStatement(verifReq);
 	ps.setString(1, email);
 	ResultSet rs = ps.executeQuery();

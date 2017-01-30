@@ -10,10 +10,10 @@
       function appel(idpub) {
       var mail = $("#e").val();     
        $.get('servlet/aimer?user=' + user + '&id=' + idpub ,function(responseText) {
-       $("#msg").html(responseText);
+       $("#jaime" + idpub).html(responseText);
       })
         .fail(function( data ) {
-    alert( "Echéc" );
+    alert( "Echec" );
       });	
       }
              
@@ -60,8 +60,7 @@
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></a></h4>
 		 	   <p><%= rs.getString("contenu")%></p>
-		 	   <p class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a><a href="" style="margin-left:6px;"> Je n'aime pas</a></span></p>
-		 	  <p id="msg"></p>
+		 	   <p id="jaime<%=idp%>" class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a><a href="" style="margin-left:6px;"> Je n'aime pas</a></span></p>	 	 
 		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
 	         </div>
 			   </div>
@@ -78,11 +77,12 @@
 
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
           <div class="list-group">
-           <!--  <a href="/TDSN/fil.jsp" class="list-group-item active">Le fil d'actualitÃ©</a> -->
+           <!--  <a href="/TDSN/fil.jsp" class="list-group-item active">Le fil d'actualitÃƒÂ©</a> -->
             <a href="/TDSN/mur.jsp" class="list-group-item active">Mon mur</a>       
-            <a href="/TDSN/fil.jsp" class="list-group-item">Paramètres</a>   
+            <a href="/TDSN/parametres.jsp" class="list-group-item">Paramètres</a>   
           </div>
         </div><!--/.sidebar-offcanvas-->
+       	        
      </div><!--/row-->
       <hr>
       

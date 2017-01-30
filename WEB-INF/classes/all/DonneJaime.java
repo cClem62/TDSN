@@ -18,15 +18,16 @@ public class Aimer extends HttpServlet{
 	try{
 	c = new Connexion();
 	c.connect();
+
+	String requete1 ="select count(*) as nbjaime from jaime where publi_id=?;";
+	PreparedStatement ps1 = cc.prepareStatement(requete1);
+	ps1.setInt(1, idpub);
+   ResultSet rs = ps1.executeQuery();
+	if(rs.next()){
+		out.println(rs.getString("nbjaime") + " j'aime");	
+	}	
+	c.close();	   	
 	
-   String m = req.getParameter("user");
-	int idpub = Integer.parseInt(req.getParameter("id"));
-	String requete ="insert into jaime values(?, (SELECT idutilisateur FROM utilisateurs WHERE email=?));";
-	Connection cc = c.getConnection();
-	PreparedStatement ps = cc.prepareStatement(requete);
-	ps.setInt(1, idpub);
-	ps.setString(2, m);
-   ps.executeQuery();
 	}catch(Exception e){
 	    out.println("<h2>" + e + "</h2>");
 	    //out.println("Vous avez déjà aimé");

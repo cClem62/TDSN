@@ -24,13 +24,16 @@
          $xml.find("publication").each(function(){
       	var user = $(this).find("utilisateur").text();   
       	var txt = $(this).find("contenu").text();  
-      	var date = $(this).find("date").text();         
+      	var date = $(this).find("date").text();     
+      	var jaime = $(this).find("jaime").text();    
+			var idp = $(this).find("idpublication").text(); 
          $("#utilisateur").html(user);    	
       	disp +="<div class='col-xs-12 col-lg-8'>" +
 	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + user +"</b></h4>" +
 		 	"<p>" + txt +"</p>" +
+         "<p class='small'>" + jaime + " j'aime <span><a onclick='appel(" + idp +")' style='margin-left:6px;'>J'aime </a><a href='' style='margin-left:6px;'> Je n'aime pas</a></span></p>"+
 			"<span class='pull-right small'>" + date + "</span>" +
 	      "</div>"+
 			"</div>";

@@ -18,8 +18,12 @@
     <!--  Lien entre les pages et les roles -->
     <security-constraint>
      <web-resource-collection>
-       <web-resource-name>Test</web-resource-name>
-         <url-pattern>/test.jsp</url-pattern>
+       <web-resource-name>Recherche</web-resource-name>
+         <url-pattern>/recherche.jsp</url-pattern>
+     </web-resource-collection>
+      <web-resource-collection>
+       <web-resource-name>Recherche</web-resource-name>
+         <url-pattern>/mur-vue.jsp</url-pattern>
      </web-resource-collection>
      <web-resource-collection>
        <web-resource-name>Fil</web-resource-name>

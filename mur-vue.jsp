@@ -25,14 +25,14 @@
   
   <div style="margin-top:5%;" class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default">Ajouter</button>
+    <button id="ajout" onclick="ajouter()" type="button" class="btn btn-default">Ajouter</button>
   </div>
-  <div class="btn-group" role="group">
+  <!-- <div class="btn-group" role="group">
     <button type="button" class="btn btn-default">Retirer</button>
   </div>
   <div class="btn-group" role="group">
     <button type="button" class="btn btn-default">Bloquer</button>
-  </div>
+  </div> -->
 </div>
    
 	</div>
@@ -46,15 +46,45 @@
 	      Connexion c = new Connexion();
 			c.connect();
 			int id = Integer.parseInt(request.getParameter("id"));
-			String req1 ="SELECT p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, count(publi_id) as nbjaime FROM publications as p INNER JOIN jaime as j ON p.idpublication = j.publi_id INNER JOIN utilisateurs as u ON j.utilisateur = u.idutilisateur WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom;";	
+			String email = request.getRemoteUser();
+			String req2="SELECT * FROM visibilitee WHERE utilisateur=?;";
 			Connection cc = c.getConnection();
+			PreparedStatement ps1 = cc.prepareStatement(req2);
+			ps1.setInt(1,id);
+			ResultSet rs1 = ps1.executeQuery();
+			String etat="";
+			if(rs1.next()){
+				etat = rs1.getString("libelle");			
+			}
+				out.println("<h2>" + etat + "</h2>");
+			if(!etat.equals("Privée")){
+				if(etat.equals("Amis")){
+
+					String req3="SELECT * FROM amitiees WHERE utilisateurA=? AND utilisateurB=(SELECT idutilisateur FROM utilisateurs WHERE email=?);";
+					PreparedStatement ps2 = cc.prepareStatement(req3);
+					ps2.setInt(1,id);
+					ps2.setString(2,email);
+					ResultSet rs2 = ps2.executeQuery();
+					String amis="";
+					if(rs2.next()){
+						amis = rs2.getString("utilisateurb");			
+					}				
+				   if(amis.trim() ==""){
+				       id=0;
+				   }
+				}
+			%>
+			<div id="iduser" style="display:none;"><%= id %></div>
+			<%	
+			String req1 ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom;";	
+		
 			PreparedStatement ps = cc.prepareStatement(req1);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
          while(rs.next()){
          String idp= rs.getString("idpublication");
 			%>             
-				<div class='col-xs-12 col-lg-8'>
+				<div class='col-xs-12 col-lg-8'>			
 				<div id="user" style="display:none;"><%= rs.getString("nom") + " " + rs.getString("prenom") %></div>
 				<div id="<%= idp %>" style="display:none;"><%= idp %></div>
 	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
@@ -67,6 +97,9 @@
 	         </div>
 			   </div>
 			  <% }
+			  }else{
+							  
+			  }
 			  }catch(Exception e){
 			  		out.println("<h2>" + e + "</h2>");
 			  } %>			  
@@ -78,6 +111,21 @@
  <script>				
  			var user = $("#user").text();
          $("#utilisateur").html(user);   
+
+			function ajouter(){
+       var mail = $("#e").val();    
+       alert(mail); 
+       var id = $("#iduser").text();
+       $.get('servlet/ajout?m=' + mail + '&id=' + id ,function(responseText) {
+       $("#ajout").html(responseText);
+      })
+        .fail(function( data ) {
+    alert( "Echéc" );
+      });	
+      }
+             			
+			
+
 </script> 
 <%@include file="template/footer.inc" %>
      

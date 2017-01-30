@@ -1,16 +1,18 @@
 <%@include file="template/header.jsp" %>
-<%@ page pageEncoding="ISO-8859-1"%>
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script type="text/javascript">      
-     $(document).ready(appel());
+     
       function appel() 
       {
-          var e = $('#email').val();	  
-           $.get('http://localhost:8080/TDSN/servlet/verifInscription?email='+e,function(responseText)
+           var e = $('#email').val();
+             
+           $.get('servlet/verifInscription?email='+e,function(responseText)
            {
 	      if(responseText.trim() !=""){
-	      $('#msg').html("<b style='color:red;'>Adresse dÃ©jÃ Â utilisÃ©e</b>");
+	      $('#msg').html("<b style='color:red;'>Veuillez choisir une autre adresse</b>");	
+	      $("#btnenvoi").prop("disabled",true);   
 	      }else{
+	      $("#btnenvoi").prop("disabled",false);
 	      $('#msg').html("");
 	      }
             });
@@ -22,12 +24,15 @@
     var mdpC = $('#mdpC').val();
     if(mdpC.trim() != ""){
     if(mdp != mdpC){
-    	   $('#dispMdp').html("<b style='color:red;'>Les mots de passe sont diffÃ©rents</b>");
+    	   $('#dispMdp').html("<b style='color:red;'>Les mots de passe sont différents</b>");
+    	   $("#btnenvoi").prop("disabled",true);   
     }else{
 	  $('#dispMdp').html("");
+	    $("#btnenvoi").prop("disabled",false);   
     }
     }else{
 	 $('#dispMdp').html("");
+	   $("#btnenvoi").prop("disabled",false);   
     }
     }
   </script>
@@ -42,19 +47,19 @@
 	  String param = request.getParameter("ins");
 	  if(param != null){
 	  if(param.equals("true")){
-	  out.println("<div class='alert alert-success' role='alert'>FÃ©licitations ! Vous faites maintenant parti(e) de TDSN ! Connectez vous !</div>");
+	  out.println("<div class='alert alert-success' role='alert'>Félicitations ! Vous faites maintenant parti(e) de TDSN ! Connectez vous !</div>");
 	  }else if(param.equals("exist")){
-		 out.println("<div class='alert alert-warning' role='alert'>Oups ! L'adresse email est dÃ©jÃ Â  prise !</div>");
+		 out.println("<div class='alert alert-warning' role='alert'>Oups ! L'adresse email est déjà prise !</div>");
 	  }else if(param.equals("mdp")){
-	  	out.println("<div class='alert alert-warning' role='alert'>Oups ! Les mots de passe sont diffÃ©rents !</div>");
+	  	out.println("<div class='alert alert-warning' role='alert'>Oups ! Les mots de passe sont différents !</div>");
 	  }else{
-	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur Ã Â eu lieu !</div>");
+	   out.println("<div class='alert alert-danger' role='alert'>Oups ! Une erreur à eu lieu !</div>");
 	  }	
 	  }
 	  %>       
           <div class="jumbotron">
               <h1>Bienvenue sur TDSN !</h1>
-            <p>Avec TDSN, partagez et restez en contact avec les Ã©tudiants de Lille 1.</p>	  	    
+            <p>Avec TDSN, partagez et restez en contact avec les étudiants de Lille 1.</p>	  	    
           </div>
 	  
           <div class="row">
@@ -68,12 +73,12 @@
        <label for="inputPassword" class="sr-only">Prenom</label>
         <input name="prenom" type="text" id="prenom" class="form-control" placeholder="Prenom" required>
 	 <input name="datenaiss" type="date" id="datenaiss" class="form-control" placeholder="1989-04-14" required><br/>
-	 <input name="email" type="text" id="email" class="form-control" placeholder="Email" onkeyup="appel()" required><br/>
-	 <panel id="msg"></panel>
+	 <input name="email" type="text" id="email" class="form-control" placeholder="Email" onblur="appel()" required><br/>
+	 <span id="msg"></span>
 	  <input name="mdp" type="password" id="mdp" class="form-control" placeholder="Mot de passe" required>
 	  <input name="mdpC" type="password" id="mdpC" class="form-control" placeholder="Confirmer mot de passe" onkeyup="verif()" required><br/>
        <span id="dispMdp"></span>
-        <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Envoyer</button>
+        <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" id="btnenvoi" name="envoi">Envoyer</button>
     </form>
 
 
