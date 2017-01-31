@@ -23,6 +23,9 @@ public class Inscription extends HttpServlet{
 	String prenom = req.getParameter("prenom");
    String datenaiss = req.getParameter("datenaiss");
 	String email = req.getParameter("email");
+        java.sql.Timestamp  dateinsc = new java.sql.Timestamp(new java.util.Date().getTime());
+	String phprof="avatar.jpg";
+	String phcouv="penny.jpg";
 	String mdp = req.getParameter("mdp");
 	String mdpC = req.getParameter("mdpC");
 	String verifReq ="select * from utilisateurs where email=?;";
@@ -40,13 +43,17 @@ public class Inscription extends HttpServlet{
 	if(mdp.equals(mdpC)){
 
 	    // J'ajoute l'utilisateur même dans la base de données 
-	   String s = "insert into utilisateurs(email,nom,prenom,datenaissance,mdp) values(?,?,?,?,MD5(?));";
+	   String s = "insert into utilisateurs(email,nom,prenom,datenaissance, dateinscription, photoprofil, photocouverture,mdp) values(?,?,?,?,?,?,?,MD5(?));";
 	   PreparedStatement ps = c.getConnection().prepareStatement(s);
 	   ps.setString(1,email);
 	   ps.setString(2,nom);
 	   ps.setString(3, prenom);
 	   ps.setDate(4, (java.sql.Date) java.sql.Date.valueOf(datenaiss));
-	   ps.setString(5, mdp);
+	   java.util.Date today = new java.util.Date();
+           ps.setDate(5, new java.sql.Date(today.getTime()));
+	   ps.setString(6, phprof);
+	   ps.setString(7, phcouv);
+	   ps.setString(8,mdp);
 	   ps.executeUpdate();
 
 	   // J'ajoute son role

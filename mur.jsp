@@ -78,18 +78,40 @@
   
 <div class="row row-offcanvas row-offcanvas-right">
 
-<div class="banner" style="width:851px; height:315px;"></div>
 
-<div class="avatar img-thumbnail"></div>
-<span id="utilisateur" style="padding-left:20px;font-size: 3em;"></span>
-
+<%@ page import="java.sql.*, java.io.*, java.net.*" %>
+	   <%@ page import="db.Connexion" %>
+    	<%
+	 	try{
+	      Connexion c = new Connexion();
+			c.connect();
+			String user = request.getRemoteUser();
+			String req4="SELECT * FROM utilisateurs WHERE email=?;";
+			Connection cc = c.getConnection();
+			PreparedStatement ps4 = cc.prepareStatement(req4);
+			ps4.setString(1,user);
+			ResultSet rs4 = ps4.executeQuery();
+		
+			while(rs4.next()){ %>
+<div class="banner" style="width:851px; height:315px; background-image:url( <%= rs4.getString("photocouverture") %> );"></div>
+<div style="background-image:url( <%= rs4.getString("photoprofil") %> );" class="avatar img-thumbnail"></div>
+<span id="iduser" style="display: none;"><%= rs4.getString("email") %></span>
+<span id="utilisateur" style="padding-left:20px;font-size: 3em;"><%= rs4.getString("nom") + " " + rs4.getString("prenom") %></span>
  <div class="col-xs-6 col-sm-2 sidebar-offcanvas menu-tdsn" id="sidebar">
           <div class="list-group">
-            <a onclick="appel()" class="list-group-item active">Journal</a>
+            <a onclick="window.location.reload()" class="list-group-item active">Journal</a>
             <a href="#" class="list-group-item">A propos</a>
             <a onclick="charge_amis()" class="list-group-item">Amis</a>
             <a href="#" class="list-group-item">Photos</a>
           </div>
+</div><!--/.sidebar-offcanvas-->
+
+<% }
+c.close();
+}catch(Exception e){
+	out.println("<h1>" + e + "</h2>");
+} %>
+
 </div><!--/.sidebar-offcanvas-->
 
 	<div class="col-xs-12 col-lg-6">	   

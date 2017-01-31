@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1" />
+  <%@ page pageEncoding="ISO-8859-1"%>
     <meta charset="ISO-8859-1">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
-    <meta name="author" content="ClÃ©ment Cantraine" >
+    <meta name="author" content="Clément Cantraine" >
     <!--<link rel="icon" href="../../favicon.ico">-->
 
     <title>The DA2I Social Network</title>
@@ -60,6 +62,9 @@
             <input type="text" name="recherche" class="form-control" placeholder="Rechercher quelqu'un de Lille 1">          
             <button type="submit" class="btn btn-primary btn-md">OK</button>
           </form>	
+           <ul class="nav navbar-nav navbar-right">
+          	 <li class="active"><a href="/TDSN/fil.jsp">Se déconnecter</a></li>   
+           	</ul>
          <% }
           %>	   
         </div><!-- /.nav-collapse -->

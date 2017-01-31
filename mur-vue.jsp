@@ -4,6 +4,26 @@
 <input style="display:none;" id="e" value="<%=request.getRemoteUser()%>" />
 <script src="js/jquery-3.1.1.min.js"></script>
 <script>
+	var user = $("#e").val();
+      function appel(idpub) {
+      var user = $("#e").val();    
+       $.get('servlet/aimer?user=' + user + '&id=' + idpub ,function(responseText) {
+       donnejaime(idpub);
+      })
+        .fail(function( data ) {
+    alert( "Echec" );
+      });	
+      }
+      
+      function donnejaime(id) {
+       $.get('servlet/donnerjaime?idpub=' + id,function(responseText) {
+        $("#jaime" + id).html(responseText);
+      })
+        .fail(function( data ) {
+    alert( "Echec" );
+      });	
+      }
+             
   function charge_amis(){  
        var mail = $("#iduser").text();
        $.get('servlet/amitiees?m=' + mail,function(responseText) {
@@ -39,10 +59,24 @@
 
 <div class="row row-offcanvas row-offcanvas-right">
 
-<div class="banner" style="width:851px; height:315px;"></div>
-
-<div class="avatar img-thumbnail"></div>
-<span id="utilisateur" style="padding-left:20px;font-size: 3em;"></span>
+<%@ page import="java.sql.*, java.io.*, java.net.*" %>
+	   <%@ page import="db.Connexion" %>
+    	<%
+	 	try{
+	      Connexion c = new Connexion();
+			c.connect();
+			int id = Integer.parseInt(request.getParameter("id"));
+			String req4="SELECT * FROM utilisateurs WHERE idutilisateur=?;";
+			Connection cc = c.getConnection();
+			PreparedStatement ps4 = cc.prepareStatement(req4);
+			ps4.setInt(1,id);
+			ResultSet rs4 = ps4.executeQuery();
+		
+			while(rs4.next()){ %>
+<div class="banner" style="width:851px; height:315px; background-image:url( <%= rs4.getString("photocouverture") %> );"></div>
+<div style="background-image:url( <%= rs4.getString("photoprofil") %> );" class="avatar img-thumbnail"></div>
+<span id="iduser" style="display: none;"><%= rs4.getString("email") %></span>
+<span id="utilisateur" style="padding-left:20px;font-size: 3em;"><%= rs4.getString("nom") + " " + rs4.getString("prenom") %></span>
  <div class="col-xs-6 col-sm-2 sidebar-offcanvas menu-tdsn" id="sidebar">
           <div class="list-group">
             <a onclick="window.location.reload()" class="list-group-item active">Journal</a>
@@ -52,32 +86,27 @@
           </div>
 </div><!--/.sidebar-offcanvas-->
 
-	<div class="col-xs-12 col-lg-6">	   
-  
+<div class="col-xs-12 col-lg-6">	   
   <div style="margin-top:5%;" class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
     <button id="ajout" onclick="ajouter()" type="button" class="btn btn-default">Ajouter</button>
   </div>
-  <!-- <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default">Retirer</button>
   </div>
-  <div class="btn-group" role="group">
-    <button type="button" class="btn btn-default">Bloquer</button>
-  </div> -->
-</div>
-   
-	</div>
+  </div>
+<% }
+c.close();
+}catch(Exception e){
+	out.println("<h1>" + e + "</h2>");
+} %>
 	
-	 <div style="margin-top:15%;" id="display">
-
-	   <%@ page import="java.sql.*, java.io.*, java.net.*" %>
-	   <%@ page import="db.Connexion" %>
+	
+	 
     	<%
 	 	try{
-	      Connexion c = new Connexion();
+	 	   Connexion c = new Connexion();
 			c.connect();
 			int id = Integer.parseInt(request.getParameter("id"));
-			String email = request.getRemoteUser();
+		   String email = request.getRemoteUser();
 			String req2="SELECT * FROM visibilitee WHERE utilisateur=?;";
 			Connection cc = c.getConnection();
 			PreparedStatement ps1 = cc.prepareStatement(req2);
@@ -87,10 +116,16 @@
 			if(rs1.next()){
 				etat = rs1.getString("libelle");			
 			}
-				out.println("<h2>" + etat + "</h2>");
+			//out.println("<h2>" + etat + "</h2>");
+		if(etat.equals("Privée")){ %>
+		out.println("<h1>Ce mur est privé</h1>");		
+		<%
+		}else{
+	
+		}			
+			
 			if(!etat.equals("Privée")){
 				if(etat.equals("Amis")){
-
 					String req3="SELECT * FROM amitiees WHERE utilisateurA=? AND utilisateurB=(SELECT idutilisateur FROM utilisateurs WHERE email=?);";
 					PreparedStatement ps2 = cc.prepareStatement(req3);
 					ps2.setInt(1,id);
@@ -98,15 +133,14 @@
 					ResultSet rs2 = ps2.executeQuery();
 					String amis="";
 					if(rs2.next()){
-						amis = rs2.getString("utilisateurb");			
+						amis = rs2.getString("utilisateurb");							
 					}				
-				   if(amis.trim() ==""){
-				       id=0;
+				   if(amis.trim() ==""){ 
+		       id=0;
 				   }
 				}
 			
 			String req1 ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, u.email;";	
-		
 			PreparedStatement ps = cc.prepareStatement(req1);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
@@ -123,30 +157,25 @@
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4 id="user"><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></h4>
 		 	   <p><%= rs.getString("contenu")%></p>
-		 	   <p class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a></span></p>
+		 	   <p id="jaime<%=idp%>" class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a></span></p>
 		 	  <p id="msg"></p>
 		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
 	         </div>
 			   </div>
 			  <% }
 			  c.close();
-			  }else{
+			  }else{	
 							c.close();  
 			  }
 			  }catch(Exception e){
 			  		out.println("<h2>" + e + "</h2>");
-			  } %>			  
-	 
-	 </div>
-	 
-
+			  } %>			  	
 </div><!-- row-offcanvas -->
  <script>				
- 			var user = $("#user").text();
-         $("#utilisateur").html(user);   
+ 		
 
-			function ajouter(){
-       var mail = $("#e").val();    
+	 function ajouter(){
+       var mail = $("#e").val();    	
        alert(mail); 
        var id = $("#iduser").text();
        $.get('servlet/ajout?m=' + mail + '&id=' + id ,function(responseText) {

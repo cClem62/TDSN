@@ -22,6 +22,9 @@ CREATE TABLE utilisateurs(
    nom VARCHAR(80),
    prenom VARCHAR(80),
    datenaissance DATE,
+   dateinscription DATE,
+   photoprofil VARCHAR(100),
+   photocouverture VARCHAR(100),
    mdp VARCHAR(40),
   CONSTRAINT pk_utilisateurs PRIMARY KEY (idutilisateur)
 );

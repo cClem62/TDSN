@@ -39,7 +39,7 @@ public class Ajout extends HttpServlet{
 	ps1.setDate(3, new java.sql.Date(today.getTime()));
         ps1.executeUpdate();
         c.close();
-	out.println("AjoutÃ© !");
+	out.println("Ajouté !");
 	     
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");
