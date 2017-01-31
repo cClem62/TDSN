@@ -81,7 +81,7 @@
 
 <%@ page import="java.sql.*, java.io.*, java.net.*" %>
 	   <%@ page import="db.Connexion" %>
-    	<%
+    	<%   
 	 	try{
 	      Connexion c = new Connexion();
 			c.connect();
@@ -111,8 +111,6 @@ c.close();
 }catch(Exception e){
 	out.println("<h1>" + e + "</h2>");
 } %>
-
-</div><!--/.sidebar-offcanvas-->
 
 	<div class="col-xs-12 col-lg-6">	   
     <form action="servlet/publier" method="post" name="form" id="form" class="form-signin">

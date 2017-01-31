@@ -3,6 +3,7 @@ import java.io.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.WebServlet;
+import org.apache.commons.lang.StringEscapeUtils;
 import java.sql.*;
 import db.Connexion;
 

@@ -63,7 +63,7 @@
             <button type="submit" class="btn btn-primary btn-md">OK</button>
           </form>	
            <ul class="nav navbar-nav navbar-right">
-          	 <li class="active"><a href="/TDSN/logout.jsp">Se déconnecter</a></li>   
+          	 <li class="active"><a href="/TDSN/fil.jsp?session=true">Se déconnecter</a></li>   
            	</ul>
          <% }
           %>	   
