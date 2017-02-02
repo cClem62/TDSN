@@ -14,7 +14,6 @@
     alert( "Echec" );
       });	
       }
-      
       function donnejaime(id) {
        $.get('servlet/donnerjaime?idpub=' + id + '&id=' + id ,function(responseText) {
         $("#jaime" + id).html(responseText)
@@ -22,8 +21,7 @@
         .fail(function( data ) {
     alert( "Echec" );
       });	
-      }
-             
+      }         
  </script>
 
 <div class="row row-offcanvas row-offcanvas-right">
@@ -41,10 +39,10 @@
         <input style="display:none" name="source" value="fil.jsp" />
         <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Publier</button>    
     </form>
-	   
+    
 	   </div>
 	   <div style="margin-top:20%;">
-	   <%@ page import="java.sql.*, java.io.*, java.net.*" %>
+	   <%@ page import="java.sql.*, java.io.*, java.net.*, org.apache.commons.lang.StringEscapeUtils" %>
 	   <%@ page import="db.Connexion" %>
     	<%
 	 	try{
@@ -52,23 +50,33 @@
 			c.connect();
 			String user = request.getRemoteUser();  
 			String requete="";
-			requete +="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs as z WHERE email='" + user + "' GROUP BY idutilisateur) GROUP BY utilisateurb) OR p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') GROUP BY p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom ORDER BY date DESC;"; 
+			requete +="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "' GROUP BY idutilisateur) GROUP BY utilisateurb) OR p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') GROUP BY p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email ORDER BY date DESC;"; 
 			Connection cc = c.getConnection();
 			PreparedStatement ps = cc.prepareStatement(requete);
 			ResultSet rs = ps.executeQuery();
 			String disp;
 		
 			while(rs.next()){			
-			String idp = rs.getString("idpublication");
+			String idp = StringEscapeUtils.escapeHtml(rs.getString("idpublication"));
+			String email = StringEscapeUtils.escapeHtml(rs.getString("email"));
+			String nom = StringEscapeUtils.escapeHtml(rs.getString("nom"));
+			String prenom = StringEscapeUtils.escapeHtml(rs.getString("prenom"));
+			String contenu = StringEscapeUtils.escapeHtml(rs.getString("contenu"));
+			String date = StringEscapeUtils.escapeHtml(rs.getString("date"));
+			String nbjaime = StringEscapeUtils.escapeHtml(rs.getString("nbjaime"));
 			%>
 				<div class='col-xs-12 col-lg-8'>
 				<div id="<%= idp %>" style="display:none;"><%= idp %></div>
 	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
-	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></a></h4>
-		 	   <p><%= rs.getString("contenu")%></p>
-		 	   <p id="jaime<%=idp%>" class="small"><%= rs.getString("nbjaime") %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a></span></p>	 	 
-		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
+	    	   <% if(email.equals(user)){ %>
+	   	   <h4><a href='mur	.jsp' style=""><b><%= nom + " " + prenom %></b></a></h4>
+				<% }else{ %>
+			   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= nom + " " + prenom %></b></a></h4> 
+			   <% } %>	   
+		 	   <p><%= contenu %></p>
+		 	   <p id="jaime<%=idp%>" class="small"><%= nbjaime %> j'aime <span><a onclick="appel(<%=idp%>)" style="margin-left:6px;">J'aime </a></span></p>	 	 
+		 	   <span class='pull-right small'><%= date %></span>
 	         </div>
 			   </div>
 			   <%

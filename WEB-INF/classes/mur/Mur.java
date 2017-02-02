@@ -29,9 +29,12 @@ public class Mur extends HttpServlet{
 	xml +="<?xml version ='1.0' encoding='ISO-8859-1' standalone='yes' ?>\n";
 	xml +="<publications>";
         while(rs.next()){
+	String contenu =  rs.getString("contenu");
+	contenu = contenu.replace("&", "et");
+	contenu = contenu.replace("<", " ");
 	    xml +="<publication>\n";
 	    xml +="<idpublication>" +  rs.getString("idpublication") + "</idpublication>\n";
-	    xml +="<utilisateur>" +  rs.getString("nom") + " " + rs.getString("prenom")+ "</utilisateur>\n";
+	    xml +="<utilisateur>" +  rs.getString("nom") + " " +  rs.getString("prenom")+ "</utilisateur>\n";
 	    xml +="<contenu>"+ rs.getString("contenu") +"</contenu>\n";
 	    xml +="<date>"+ rs.getString("date") +"</date>\n";
 	    xml +="<jaime>"+ rs.getString("nbjaime") +"</jaime>\n";

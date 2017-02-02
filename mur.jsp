@@ -111,7 +111,6 @@ c.close();
 }catch(Exception e){
 	out.println("<h1>" + e + "</h2>");
 } %>
-
 	<div class="col-xs-12 col-lg-6">	   
     <form action="servlet/publier" method="post" name="form" id="form" class="form-signin">
         <textarea class="form-control" rows="2" id="publication" name="publication" placeholder="Exprimez-vous"></textarea>

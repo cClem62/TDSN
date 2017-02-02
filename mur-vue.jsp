@@ -86,23 +86,14 @@
           </div>
 </div><!--/.sidebar-offcanvas-->
 
-<div class="col-xs-12 col-lg-6">	   
-  <div style="margin-top:5%;" class="btn-group btn-group-justified" role="group" aria-label="...">
-  <div class="btn-group" role="group">
-    <button id="ajout" onclick="ajouter()" type="button" class="btn btn-default">Ajouter</button>
-  </div>
-  </div>
-  </div>
+<!-- <div class="col-xs-12 col-lg-6">	  -->  
 <% }
-c.close();
 }catch(Exception e){
 	out.println("<h1>" + e + "</h2>");
-} %>
-	
-	
-	 
-    	<%
+} 
 	 	try{
+	 	   String acces="false;";
+	 	   String amis="false";
 	 	   Connexion c = new Connexion();
 			c.connect();
 			int id = Integer.parseInt(request.getParameter("id"));
@@ -115,40 +106,70 @@ c.close();
 			String etat="";
 			if(rs1.next()){
 				etat = rs1.getString("libelle");			
-			}
+			}	
 			//out.println("<h2>" + etat + "</h2>");
-		if(etat.equals("Privée")){ %>
-		out.println("<h1>Ce mur est privé</h1>");		
-		<%
-		}else{
-	
-		}			
-			
-			if(!etat.equals("Privée")){
-				if(etat.equals("Amis")){
+		if(etat.equals("Public")){ 
+			acces ="true";
+		
+		}else if(etat.equals("Amis")){
+					acces ="true";
+		}else if(etat.equals("Privée")){
+					acces ="false";				
+			}	
+					String amitiees="";
 					String req3="SELECT * FROM amitiees WHERE utilisateurA=? AND utilisateurB=(SELECT idutilisateur FROM utilisateurs WHERE email=?);";
 					PreparedStatement ps2 = cc.prepareStatement(req3);
 					ps2.setInt(1,id);
 					ps2.setString(2,email);
 					ResultSet rs2 = ps2.executeQuery();
-					String amis="";
 					if(rs2.next()){
-						amis = rs2.getString("utilisateurb");							
+						amitiees = rs2.getString("utilisateurb");							
 					}				
-				   if(amis.trim() ==""){ 
-		       id=0;
-				   }
-				}
+				   if(amitiees.trim() ==""){ 
+		             acces ="false";
+		             amis ="false";
+				   }else{
+				      //out.println("<h1>Select non vide</h1>");		
 			
+				   	amis ="true";
+				   }	
+				   if(amis.equals("true")){		
+						%>
+						<div class="col-xs-12 col-lg-6">	
+							<div style="margin-top:5%;" class="btn-group btn-group-justified" role="group" aria-label="...">
+  							<div class="btn-group" role="group">
+    						<button id="ajout" onclick="" type="button" class="btn btn-default">Vous êtes amis</button>
+ 					 		</div>
+  							</div>
+						</div>	
+						<%	   
+				   }else{ %>
+					<div class="col-xs-12 col-lg-6">	
+						<div style="margin-top:5%;" class="btn-group btn-group-justified" role="group" aria-label="...">
+  							<div class="btn-group" role="group">
+    						<button id="ajout" onclick="ajouter()" type="button" class="btn btn-default">Ajouter</button>
+ 					 		</div>
+  						</div>
+					</div>	
+								<%		   
+				   }
+				   if(amis =="true" || acces =="true"){
+				   		 //out.println("<h1> Mur affiché </h1>");
+				   		 
+				   		 
+				   		 
 			String req1 ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, u.email;";	
 			PreparedStatement ps = cc.prepareStatement(req1);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			int i=0;
+			%>
+			<div style="margin-top:12%;">
+			<%
          while(rs.next()){
          String idp= rs.getString("idpublication");
 			%>             
-				<div class='col-xs-12 col-lg-8'>		
+			<div class='col-xs-12 col-lg-8'>	
 				<% if(i ==0){ %>
 				<div id="iduser" style="display:none;"><%= rs.getString("email") %></div>
 				<% } i =1; %>					
@@ -161,15 +182,33 @@ c.close();
 		 	  <p id="msg"></p>
 		 	   <span class='pull-right small'><%= rs.getString("date")%></span>
 	         </div>
-			   </div>
+			   </div> 
 			  <% }
-			  c.close();
-			  }else{	
-							c.close();  
-			  }
-			  }catch(Exception e){
-			  		out.println("<h2>" + e + "</h2>");
-			  } %>			  	
+							  
+			   %>				   		 
+				   		 	 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				   		 
+				  <% }else{
+				   		out.println("<h3>Désolé, vous n'avez pas accès à ce mur.</h3>");			   
+				   }
+						c.close();	
+			}catch(Exception e){
+				out.println("<h2>" + e + "</h2>");
+			}
+			%>
+		<!-- 	</div> -->
+			<!--  </div> 	 -->
+			</div>
 </div><!-- row-offcanvas -->
  <script>				
  		

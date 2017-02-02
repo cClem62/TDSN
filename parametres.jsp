@@ -9,19 +9,19 @@
           <div class="jumbotron">
               <h1>Vos paramètres</h1><br/>
 	        
-           <div style="text-align:center; margin:40px 0 40px 0;"> 
-           <h2>Apparence</h2>
-           <a class="btn btn-primary btn-lg" role="button">Changer d'image</a>  	
+           <div style="margin:40px 0 40px 0;"> 
+          
+           <a style="margin:0 auto;" class="btn btn-primary btn-lg" role="button">Changer d'image</a>  	
            </div>
 	      
 	      
            <div style="text-align:center; margin:40px 0 40px 0;"> 
-           <h2>Mot de passe</h2>
-           <a class="btn btn-primary btn-lg" role="button">Modifier mot de passe [DON'T WORK]</a>  	
+         
+           <a class="btn btn-primary btn-lg" role="button" href="modifier-mot-de-passe.jsp">Modifier mot de passe</a>  	
            </div>
 	   
-           <div style="text-align:center; margin:80px 0 40px 0;">
-           <h2>Confidentialité</h2>
+           <div style="text-align:right; margin:80px 0 40px 0;">
+        
            <a class="btn btn-primary btn-lg" href="confidentialite.jsp" role="button">Changer la confidentialité</a>  
            </div>
 

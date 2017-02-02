@@ -26,8 +26,8 @@ public class Inscription extends HttpServlet{
    String datenaiss = req.getParameter("datenaiss");
 	String email = req.getParameter("email");
         java.sql.Timestamp  dateinsc = new java.sql.Timestamp(new java.util.Date().getTime());
-	String phprof="media/avatar.png";
-	String phcouv="media/avatar.png";
+	String phprof="avatar.jpg";
+	String phcouv="penny.jpg";
 	String mdp = req.getParameter("mdp");
 	String mdpC = req.getParameter("mdpC");
 	String verifReq ="select * from utilisateurs where email=?;";
@@ -61,11 +61,9 @@ public class Inscription extends HttpServlet{
 	   // Je lui envoi un mail pour confirmer son inscription
 	   String emetteur ="fansdhp62@gmail.com";
 	   String sujet ="Inscription TDSN";
-	   String contenu ="Bonjour " + prenom + " , nous vous confirmons votre inscription sur TDSN. A bientôt ! ";
-	   Boolean b =  Email.send(emetteur, email, sujet, contenu);
-		if(b== false){
-			out.println("Erreur d'envoi");
-		}
+	   String contenu ="Bonjour" + prenom + " , nous vous confirmons votre inscription sur TDSN";
+	   Email.send(emetteur, email, sujet, contenu);
+
 	   // J'ajoute son role
 	   String rr = "insert into user_roles values(?,'membre');";
 	   PreparedStatement ps1 = cc.prepareStatement(rr);

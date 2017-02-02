@@ -49,7 +49,7 @@
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4><a href='mur-vue.jsp?id=<%= rs.getString("idutilisateur") %>' style=""><b><%= rs.getString("prenom") + " " + rs.getString("nom") %></b></a></h4>
 		 	   <p><%= rs.getString("email") %></p> 	  
-		 	   <span class='pull-right small'>Membre depuis le (pas dans la bdd)</span>
+		 	   <span class='pull-right small'>Membre depuis le <%= rs.getString("dateinscription") %></span>
 	         </div>
 			   </div>  
 			  <% }
