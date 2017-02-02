@@ -27,9 +27,10 @@
       	var date = $(this).find("date").text();     
       	var jaime = $(this).find("jaime").text();    
 			var idp = $(this).find("idpublication").text(); 
+			var profil = $(this).find("photoprofil").text(); 
          $("#utilisateur").html(user);    	
       	disp +="<div class='col-xs-12 col-lg-8'>" +
-	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
+	     	"<img src="+ profil +" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + user +"</b></h4>" +
 		 	"<p>" + txt +"</p>" +
@@ -61,9 +62,10 @@
       	var nom = $(this).find("nom").text();   
       	var prenom = $(this).find("prenom").text();    
       	var datenaiss = $(this).find("datenaissance").text();
-      	var datea = $(this).find("dateamitiees").text();                      	
+      	var datea = $(this).find("dateamitiees").text(); 
+      	var profil = $(this).find("photoprofil").text();                      	
       	disp +="<div class='col-xs-12 col-lg-8'>" +
-	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
+	     	"<img src="+ profil +" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
 		 	"<p>" + mail + "</p>" +

@@ -50,7 +50,7 @@
 			c.connect();
 			String user = request.getRemoteUser();  
 			String requete="";
-			requete +="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "' GROUP BY idutilisateur) GROUP BY utilisateurb) OR p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') GROUP BY p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email ORDER BY date DESC;"; 
+			requete +="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, u.photoprofil, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur IN(SELECT utilisateurB FROM amitiees WHERE utilisateurA=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "' GROUP BY idutilisateur) GROUP BY utilisateurb) OR p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email='" + user + "') GROUP BY p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, u.photoprofil ORDER BY date DESC;"; 
 			Connection cc = c.getConnection();
 			PreparedStatement ps = cc.prepareStatement(requete);
 			ResultSet rs = ps.executeQuery();
@@ -64,13 +64,14 @@
 			String contenu = StringEscapeUtils.escapeHtml(rs.getString("contenu"));
 			String date = StringEscapeUtils.escapeHtml(rs.getString("date"));
 			String nbjaime = StringEscapeUtils.escapeHtml(rs.getString("nbjaime"));
+		   String profil = rs.getString("photoprofil");
 			%>
 				<div class='col-xs-12 col-lg-8'>
 				<div id="<%= idp %>" style="display:none;"><%= idp %></div>
-	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
+	     	   <img src="<%= profil %>" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
 	    	   <% if(email.equals(user)){ %>
-	   	   <h4><a href='mur	.jsp' style=""><b><%= nom + " " + prenom %></b></a></h4>
+	   	   <h4><a href='mur.jsp' style=""><b><%= nom + " " + prenom %></b></a></h4>
 				<% }else{ %>
 			   <h4><a href='mur-vue.jsp?id=<%= rs.getString("utilisateur") %>' style=""><b><%= nom + " " + prenom %></b></a></h4> 
 			   <% } %>	   
@@ -83,7 +84,7 @@
 			   }			
 			   c.close();
 	 	}catch(Exception e){
-	     out.println("<h2>"+e+"</h2>");			
+	     out.println("<h2>"+e+"</h2>");		
 			}				
 	%>
     </div>

@@ -20,7 +20,7 @@ public class Mur extends HttpServlet{
 	c.connect();
 	String email = req.getParameter("m");
         
-	String requete ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email=?) GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom ORDER BY date DESC;";
+	String requete ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.photoprofil, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=(SELECT idUtilisateur FROM utilisateurs WHERE email=?) GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, u.photoprofil ORDER BY date DESC;";
 	Connection cc = c.getConnection();
 	PreparedStatement ps = cc.prepareStatement(requete);
 	ps.setString(1,email);	
@@ -38,6 +38,7 @@ public class Mur extends HttpServlet{
 	    xml +="<contenu>"+ rs.getString("contenu") +"</contenu>\n";
 	    xml +="<date>"+ rs.getString("date") +"</date>\n";
 	    xml +="<jaime>"+ rs.getString("nbjaime") +"</jaime>\n";
+	    xml +="<photoprofil>"+ rs.getString("photoprofil") +"</photoprofil>\n";
 	    xml +="</publication>\n";
 	}
 	xml +="</publications>";

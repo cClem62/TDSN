@@ -43,9 +43,10 @@
       	var nom = $(this).find("nom").text();   
       	var prenom = $(this).find("prenom").text();    
       	var datenaiss = $(this).find("datenaissance").text();
-      	var datea = $(this).find("dateamitiees").text();                      	
+      	var datea = $(this).find("dateamitiees").text(); 
+			var profil = $(this).find("photoprofil").text();                      	
       	disp +="<div class='col-xs-12 col-lg-8'>" +
-	     	"<img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
+	     	"<img src="+ profil +" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
 		 	"<p>" + mail + "</p>" +
@@ -78,7 +79,7 @@
 <span id="iduser" style="display: none;"><%= rs4.getString("email") %></span>
 <span id="utilisateur" style="padding-left:20px;font-size: 3em;"><%= rs4.getString("nom") + " " + rs4.getString("prenom") %></span>
  <div class="col-xs-6 col-sm-2 sidebar-offcanvas menu-tdsn" id="sidebar">
-          <div class="list-group">
+            <div class="list-group">
             <a onclick="window.location.reload()" class="list-group-item active">Journal</a>
             <a href="#" class="list-group-item">A propos</a>
             <a onclick="charge_amis()" class="list-group-item">Amis</a>
@@ -158,23 +159,24 @@
 				   		 
 				   		 
 				   		 
-			String req1 ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, u.email;";	
+			String req1 ="SELECT p.idpublication, p.utilisateur, contenu, date, u.nom, u.prenom, u.email, u.photoprofil, count(publi_id) as nbjaime FROM publications as p INNER JOIN utilisateurs u ON p.utilisateur = idUtilisateur LEFT JOIN jaime as j ON idpublication = publi_id WHERE p.utilisateur=? GROUP BY p.idpublication, p.utilisateur, p.contenu, p.date, u.prenom, u.nom, u.email, u.photoprofil;";	
 			PreparedStatement ps = cc.prepareStatement(req1);
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			int i=0;
 			%>
-			<div style="margin-top:12%;">
+			<div id="display" style="margin-top:12%;">
 			<%
          while(rs.next()){
          String idp= rs.getString("idpublication");
+         String profil = rs.getString("photoprofil");
 			%>             
 			<div class='col-xs-12 col-lg-8'>	
 				<% if(i ==0){ %>
 				<div id="iduser" style="display:none;"><%= rs.getString("email") %></div>
 				<% } i =1; %>					
 				<div id="<%= idp %>" style="display:none;"><%= idp %></div>
-	     	   <img src='avatar.jpg' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
+	     	   <img src='<%= profil %>' style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>
 	    	   <div class='col-xs-12 col-lg-10'>
 	   	   <h4 id="user"><b><%= rs.getString("nom") + " " + rs.getString("prenom") %></b></h4>
 		 	   <p><%= rs.getString("contenu")%></p>
@@ -184,21 +186,8 @@
 	         </div>
 			   </div> 
 			  <% }
-							  
-			   %>				   		 
-				   		 	 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				   		 
-				  <% }else{
+		
+	 }else{
 				   		out.println("<h3>Désolé, vous n'avez pas accès à ce mur.</h3>");			   
 				   }
 						c.close();	

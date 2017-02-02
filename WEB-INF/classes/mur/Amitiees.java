@@ -36,6 +36,7 @@ public class Amitiees extends HttpServlet{
 	    xml +="<email>"+ rs.getString("email") +"</email>\n";
 	    xml +="<nom>"+ rs.getString("nom") +"</nom>\n";
 	    xml +="<prenom>"+ rs.getString("prenom") +"</prenom>\n";
+	    xml +="<photoprofil>"+ rs.getString("photoprofil") +"</photoprofil>\n";
 	    xml +="<datenaissance>"+ rs.getString("datenaissance") +"</datenaissance>\n";
 	    xml +="<dateamitiees>"+ rs.getString("date") +"</dateamitiees>\n";
 	    xml +="</utilisateur>\n";
