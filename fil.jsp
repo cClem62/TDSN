@@ -5,8 +5,7 @@
 
 <script type="text/javascript" >	
       var user = $("#e").val();
-      function appel(idpub) {
-      var mail = $("#e").val();     
+      function appel(idpub) {   
        $.get('servlet/aimer?user=' + user + '&id=' + idpub ,function(responseText) {
        donnejaime(idpub);
       })
@@ -30,17 +29,26 @@
           <p class="pull-right visible-xs">
             <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">Toggle nav</button>
           </p>
-	
+          
 	   <div class="row">
 	   	<div class="col-xs-12 col-lg-8">	   
+	   	<%
+	  String param = request.getParameter("etat");
+	  if(param != null){
+	  if(param.equals("true")){
+	  out.println("<div class='alert alert-success' role='alert'>Message publié !</div>");
+	  }else{
+		 out.println("<div class='alert alert-warning' role='alert'>Oups ! Message non publié</div>");
+	  }
+	  }
+	  %>    
     <form action="servlet/publier" method="post" name="form" id="form" class="form-signin">
         <textarea class="form-control" rows="2" id="publication" name="publication" placeholder="Exprimez-vous"></textarea>
         <input style="display:none" name="user" value="<%=request.getRemoteUser()%>" />
         <input style="display:none" name="source" value="fil.jsp" />
         <button class="btn btn-primary btnPink btn-block" style="margin-top:40px;" type="submit" name="envoi">Publier</button>    
-    </form>
-    
-	   </div>
+    </form>  
+	      </div>
 	   <div style="margin-top:20%;">
 	   <%@ page import="java.sql.*, java.io.*, java.net.*, org.apache.commons.lang.StringEscapeUtils" %>
 	   <%@ page import="db.Connexion" %>

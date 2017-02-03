@@ -27,7 +27,7 @@ public class Inscription extends HttpServlet{
 	String email = req.getParameter("email");
         java.sql.Timestamp  dateinsc = new java.sql.Timestamp(new java.util.Date().getTime());
 	String phprof="media/avatar.png";
-	String phcouv="media/avatar.png";
+	String phcouv="media/couverture.jpg";
 	String mdp = req.getParameter("mdp");
 	String mdpC = req.getParameter("mdpC");
 	String verifReq ="select * from utilisateurs where email=?;";

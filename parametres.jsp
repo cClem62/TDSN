@@ -11,7 +11,7 @@
 	        
            <div style="margin:40px 0 40px 0;"> 
           
-           <a style="margin:0 auto;" class="btn btn-primary btn-lg" role="button">Changer d'image</a>  	
+           <a style="margin:0 auto;" class="btn btn-primary btn-lg" role="button"  href="images.jsp">Changer d'image</a>  	
            </div>
 	      
 	      

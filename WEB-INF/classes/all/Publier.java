@@ -38,6 +38,7 @@ public class Publier extends HttpServlet{
 
         String source = req.getParameter("source");
 	String texte = req.getParameter("publication");
+	if(texte.trim() !=""){
 	texte.replaceAll("\\W","");
 	//texte = StringEscapeUtils.escapeHtml(texte);
 
@@ -50,7 +51,11 @@ public class Publier extends HttpServlet{
         ps.setTimestamp(3, sqlDate);
         ps.executeUpdate();
         c.close();
-        res.sendRedirect("../" + source);  
+        res.sendRedirect("../" + source);
+	}else{
+	      c.close();
+	      res.sendRedirect("../" + source + "?etat=false");
+	}
        
 	}catch(Exception e){
 	     out.println("<h2>"+e+"</h2>");	   

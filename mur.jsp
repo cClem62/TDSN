@@ -8,9 +8,9 @@
 
 <script>
 		var disp;	
+		var user = $("#e").val();   
       function appel() {
-      var mail = $("#e").val();     
-       $.get('servlet/mur?m=' + mail,function(responseText) {
+       $.get('servlet/mur?m=' + user,function(responseText) {
       parseXml(responseText);
       })
         .fail(function( data ) {
@@ -34,7 +34,7 @@
 	    	"<div class='col-xs-9 col-lg-10'>" +
 	   	"<h4><b>" + user +"</b></h4>" +
 		 	"<p>" + txt +"</p>" +
-         "<p class='small'>" + jaime + " j'aime <span><a onclick='appel(" + idp +")' style='margin-left:6px;'>J'aime </a></span></p>"+
+         "<p class='small' id='jaime" + idp +"'>" + jaime + " j'aime <span><a onclick='appel2(" + idp +")' style='margin-left:6px;'>J'aime </a></span></p>"+
 			"<span class='pull-right small'>" + date + "</span>" +
 	      "</div>"+
 			"</div>";
@@ -67,14 +67,31 @@
       	disp +="<div class='col-xs-12 col-lg-8'>" +
 	     	"<img src="+ profil +" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
 	    	"<div class='col-xs-9 col-lg-10'>" +
-	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
+	   	"<h4><a href='mur-vue.jsp?id=" + user +"'><b>" + nom + " " + prenom +"</b></a></h4>" +
 		 	"<p>" + mail + "</p>" +
 			"<span class='pull-right small'>Amis depuis le " + datea + "</span>" +
 	      "</div>"+
 			"</div>";
     		});
     		$("#display").html(disp);
-      } 
+      }
+     
+    function appel2(idpub) {   
+       $.get('servlet/aimer?user=' + user + '&id=' + idpub ,function(responseText) {
+       donnejaime(idpub);
+      })
+        .fail(function( data ) {
+    alert( "Echec" );
+      });	
+      }
+      function donnejaime(id) {
+       $.get('servlet/donnerjaime?idpub=' + id + '&id=' + id ,function(responseText) {
+        $("#jaime" + id).html(responseText)
+      })
+        .fail(function( data ) {
+    alert( "Echec" );
+      });	
+      }         
       
     </script> 
   

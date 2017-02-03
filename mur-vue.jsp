@@ -38,17 +38,24 @@
 			$xml = $( $.parseXML( xml ) );
 			var disp="";
          $xml.find("utilisateur").each(function(){
-      	var user = $(this).find("idutilisateur").text();   
+      	var iduser = $(this).find("idutilisateur").text();   
       	var mail = $(this).find("email").text();  
       	var nom = $(this).find("nom").text();   
       	var prenom = $(this).find("prenom").text();    
       	var datenaiss = $(this).find("datenaissance").text();
       	var datea = $(this).find("dateamitiees").text(); 
-			var profil = $(this).find("photoprofil").text();                      	
+			var profil = $(this).find("photoprofil").text();   
+			var reUser = $(this).find("#e").val();     
+			var url="";
+			if(mail == user){
+				 url ="mur.jsp";
+			}else{
+				 url ="mur-vue.jsp?id=" + user;
+			}
       	disp +="<div class='col-xs-12 col-lg-8'>" +
 	     	"<img src="+ profil +" style='width:60px;float:left;' class='img-responsive img-thumbnail' alt='Cinque Terre'>"+
-	    	"<div class='col-xs-9 col-lg-10'>" +
-	   	"<h4><b>" + nom + " " + prenom +"</b></h4>" +
+	    	"<div class='col-xs-9 col-lg-10'>" +	    	
+	   	"<h4><a href='" + url +"'><b>" + nom + " " + prenom +"</b></a></h4>" +
 		 	"<p>" + mail + "</p>" +
 			"<span class='pull-right small'>Amis depuis le " + datea + "</span>" +
 	      "</div>"+
